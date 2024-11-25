@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useFetchAllPostsQuery } from "../../redux/API/posts/postsApi";
 
 const Freeboard = () => {
   // const [posts, setPosts] = useState([]);
@@ -11,23 +12,27 @@ const Freeboard = () => {
   //     .then((res) => res.json())
   //     .then((data) => setPosts(data));
   // }, []);
-  const [posts, setPosts] = useState([]);
+
+  const { data: posts = [] } = useFetchAllPostsQuery();
+  console.log(posts.length);
+
+  // const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(20);
 
-  const fetchData = async () => {
-    setLoading(true);
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
-    setPosts(response.data);
-    setLoading(false);
-  };
+  // const fetchData = async () => {
+  //   setLoading(true);
+  //   const response = await axios.get(
+  //     "https://jsonplaceholder.typicode.com/posts"
+  //   );
+  //   setPosts(response.data);
+  //   setLoading(false);
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   console.log(posts);
 

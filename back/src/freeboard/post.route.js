@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/postregist", registPost);
 
 //get all post
-router.get("/freeboard", getAllPosts);
+router.get("/allpost", getAllPosts);
 
 //get one post
 router.get("/post-detail/:id", getOnePost);
@@ -22,6 +22,6 @@ router.get("/post-detail/:id", getOnePost);
 router.put("/update-post/:id", updatePost);
 
 //delete post
-router.delete("/:id", deletePost);
+router.delete("/delete-post/:id", deletePost);
 
 module.exports = router;

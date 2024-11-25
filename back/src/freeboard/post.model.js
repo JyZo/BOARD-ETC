@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
   {
-    postid: {
+    id: {
       type: Number,
       required: true,
     },
