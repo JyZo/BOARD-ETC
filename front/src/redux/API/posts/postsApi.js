@@ -5,7 +5,6 @@ const baseQuery = fetchBaseQuery({
   credentials: "include",
   prepareHeaders: (Headers) => {
     const token = localStorage.getItem("token");
-    console.log("ttttttt");
     if (token) {
       Headers.set("Authorization", `Bearer ${token}`);
     }
@@ -16,13 +15,47 @@ const baseQuery = fetchBaseQuery({
 const postsApi = createApi({
   reducerPath: "postsApi",
   baseQuery,
+  tagTypes: ["Posts"],
   endpoints: (builder) => ({
     fetchAllPosts: builder.query({
       query: () => "/allpost",
       providesTags: ["Posts"],
     }),
+    fetchPostById: builder.query({
+      query: (id) => `/post-detail/${id}`,
+      providesTags: (result, error, id) => [{ type: "Posts", id }],
+    }),
+    addPost: builder.mutation({
+      query: (newPost) => ({
+        url: "/postregist",
+        method: "POST",
+        body: newPost,
+      }),
+      invalidatesTags: ["Posts"],
+    }),
+    updatePost: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `/update-post/${id}`,
+        method: "PUT",
+        body: body,
+      }),
+      invalidatesTags: ["Posts"],
+    }),
+    deletePost: builder.mutation({
+      query: (id) => ({
+        url: `/delete-post/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Posts"],
+    }),
   }),
 });
 
-export const { useFetchAllPostsQuery } = postsApi;
+export const {
+  useFetchAllPostsQuery,
+  useFetchPostByIdQuery,
+  useAddPostMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+} = postsApi;
 export default postsApi;
