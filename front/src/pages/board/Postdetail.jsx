@@ -32,20 +32,41 @@ const Postdetail = () => {
     <div className="space-y-12">
       <div className="border-b border-gray-900/10 pb-12">
         <div>
-          <span>{post.category}</span>
+          <span className="block text-2xl font-medium text-gray-900 text-left mt-10">
+            {post.category}[{post.title}]
+          </span>
         </div>
-        <hr className="h-1 my-10 bg-blue-400"></hr>
+        <hr className="h-1 bg-blue-400"></hr>
+        <div className="flex justify-between mb-3">
+          <span className="block text-base font-medium text-gray-900 text-left">
+            작성자 : {post.createuser}
+          </span>
+          <span className="block text-base font-medium text-gray-900 text-left">
+            {post.createdAt !== undefined ? (
+              new Intl.DateTimeFormat("ko-KR", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              }).format(new Date(post.createdAt))
+            ) : (
+              <div> </div>
+            )}
+          </span>
+        </div>
         {/* <h2 className="text-3xl font-extrabold text-gray-900 font-size mt-6 mb-10">
           자유게시판 글 작성
         </h2> */}
 
         <div className="col-span-full">
-          <label
+          {/* <label
             htmlFor="street-address"
             className="block font-medium text-gray-900 text-2xl text-left"
-          >
-            [{post.title}]
-          </label>
+          > */}
+
+          {/* </label> */}
           <div className="mt-2">
             {/* <input
               id="street-address"
@@ -61,22 +82,15 @@ const Postdetail = () => {
         </div>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="col-span-full">
-            <label
-              htmlFor="about"
-              className="block text-2xl font-medium text-gray-900 text-left"
-            >
-              내용
-            </label>
-            <div className="mt-2">
-              <textarea
+            {/* <textarea
                 id="about"
                 name="about"
                 rows={30}
                 className="resize-none block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 pl-2"
                 value={post.content}
                 disabled
-              />
-            </div>
+              /> */}
+            <div className="min-h-[300px] text-left mt-5">{post.content}</div>
           </div>
         </div>
       </div>
