@@ -13,6 +13,10 @@ const Postdetail = () => {
   const { data: post, isLoading, isError } = useFetchPostByIdQuery(id);
   console.log(post);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // const fetchData = async () => {
   //   setLoading(true);
   //   const response = await axios.get(

@@ -1,9 +1,34 @@
 import React from "react";
-const categories = ["자유", "질문", "유머"];
+import { useForm } from "react-hook-form";
+import { useAddPostMutation } from "../../redux/API/posts/postsApi";
+import { useNavigate } from "react-router-dom";
+
+const categories = ["free", "question", "humor"];
 
 const Postregist = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const [addPost, { isLoading, isError }] = useAddPostMutation();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    const newPost = {
+      ...data,
+      createuser: "haha",
+    };
+    console.log(data);
+    try {
+      await addPost(newPost).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 font-size mt-6 mb-10">
@@ -24,6 +49,7 @@ const Postregist = () => {
                 type="text"
                 autoComplete="street-address"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 mb-6 pl-2"
+                {...register("title", { required: true })}
               />
             </div>
             <div className="sm:col-span-3">
@@ -35,6 +61,7 @@ const Postregist = () => {
               </label>
               <div className="mt-2">
                 <select
+                  {...register("category", { required: true })}
                   id="country"
                   name="country"
                   autoComplete="country-name"
@@ -64,6 +91,7 @@ const Postregist = () => {
                   rows={20}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                   defaultValue={""}
+                  {...register("content", { required: true })}
                 />
               </div>
             </div>
@@ -74,6 +102,9 @@ const Postregist = () => {
           <button
             type="button"
             className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+            onClick={() => {
+              navigate("/freeboard");
+            }}
           >
             취소
           </button>

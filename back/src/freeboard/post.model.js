@@ -4,7 +4,6 @@ const postSchema = new mongoose.Schema(
   {
     id: {
       type: Number,
-      required: true,
     },
     title: {
       type: String,
