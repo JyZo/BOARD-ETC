@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useAddPostMutation } from "../../redux/API/posts/postsApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useFetchPostByIdQuery } from "../../redux/API/posts/postsApi";
 
 const categories = [
   { value: "", label: "선택해주세요" },
@@ -10,7 +10,13 @@ const categories = [
   { value: "유머", label: "유머" },
 ];
 
-const Postregist = () => {
+const Postupdate = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { data: post, isLoading, isError } = useFetchPostByIdQuery(id);
+  console.log(post);
+
   const {
     register,
     handleSubmit,
@@ -18,29 +24,28 @@ const Postregist = () => {
     reset,
     setError,
   } = useForm();
-  const [addPost, { isLoading, isError }] = useAddPostMutation();
-  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    const newPost = {
+    const updatePost = {
       ...data,
       createuser: "haha",
     };
     console.log(data);
     try {
-      await addPost(newPost).unwrap();
-      alert("post regiest success");
+      //   await addPost(newPost).unwrap();
+      alert("post update success");
       navigate("/freeboard", { replace: true });
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 font-size mt-6 mb-10">
-            자유게시판 글 작성
+            자유게시판 글 수정
           </h2>
 
           <div className="col-span-full">
@@ -57,6 +62,7 @@ const Postregist = () => {
                 type="text"
                 autoComplete="street-address"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 mb-6 pl-2"
+                // value={post.title}
                 {...register("title", { required: true })}
               />
               {errors.title && <p>{errors.title.message}</p>}
@@ -100,8 +106,8 @@ const Postregist = () => {
                   name="about"
                   rows={20}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                  defaultValue={""}
                   {...register("content", { required: true })}
+                  value={post}
                 />
               </div>
             </div>
@@ -111,18 +117,9 @@ const Postregist = () => {
         <div className="mt-6 flex items-center justify-end gap-x-2 mb-60">
           <button
             type="button"
-            className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
-            onClick={() => {
-              navigate("/freeboard");
-            }}
+            className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
           >
-            취소
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            작성
+            수정
           </button>
         </div>
       </div>
@@ -130,4 +127,4 @@ const Postregist = () => {
   );
 };
 
-export default Postregist;
+export default Postupdate;

@@ -8,6 +8,7 @@ import Login from "../components/Login";
 import Postregist from "../pages/board/Postregist";
 import Postdetail from "../pages/board/Postdetail";
 import Userregist from "../components/Userregist";
+import Postupdate from "../pages/board/Postupdate";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/postdetail/:id",
         element: <Postdetail />,
+      },
+      {
+        path: "/postupdate/:id",
+        element: <Postupdate />,
       },
       {
         path: "/news",
