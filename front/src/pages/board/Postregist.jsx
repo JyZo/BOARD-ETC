@@ -3,7 +3,12 @@ import { useForm } from "react-hook-form";
 import { useAddPostMutation } from "../../redux/API/posts/postsApi";
 import { useNavigate } from "react-router-dom";
 
-const categories = ["free", "question", "humor"];
+const categories = [
+  { value: "", label: "선택해주세요" },
+  { value: "자유", label: "자유" },
+  { value: "질문", label: "질문" },
+  { value: "유머", label: "유머" },
+];
 
 const Postregist = () => {
   const {
@@ -54,7 +59,7 @@ const Postregist = () => {
             </div>
             <div className="sm:col-span-3">
               <label
-                htmlFor="country"
+                htmlFor="category"
                 className="block font-medium text-gray-900 text-2xl text-left "
               >
                 카테고리
@@ -62,14 +67,15 @@ const Postregist = () => {
               <div className="mt-2">
                 <select
                   {...register("category", { required: true })}
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
+                  id="category"
+                  name="category"
+                  autoComplete="category-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6 pl-2"
                 >
+                  {/* <option value="default">선택해 주세요</option> */}
                   {categories.map((category, index) => (
-                    <option key={index} value={category}>
-                      {category}
+                    <option key={index} value={category.value}>
+                      {category.label}
                     </option>
                   ))}
                 </select>

@@ -82,7 +82,7 @@ const Freeboard = () => {
                 {post.id}
               </td>
               <td className="px-6 py-4 font-medium text-black whitespace-nowrap w-[13%]">
-                유머
+                {post.category}
               </td>
               <td className="px-6 py-4 font-medium text-black whitespace-nowrap w-[60%]">
                 <Link to={`/postdetail/${post.id}`}>{post.title}</Link>
