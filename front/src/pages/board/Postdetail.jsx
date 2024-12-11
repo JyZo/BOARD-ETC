@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFetchPostByIdQuery } from "../../redux/API/posts/postsApi";
 
 const categories = ["자유", "질문", "유머"];
@@ -9,13 +9,19 @@ const Postdetail = () => {
   // const [post, setPost] = useState([]);
   // const [loading, setLoading] = useState(false);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const { data: post, isLoading, isError } = useFetchPostByIdQuery(id);
   console.log(post);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const moveUpdate = () => {
+    navigate("/postupdate/" + id);
+  };
+
+  const deletePost = () => {};
 
   // const fetchData = async () => {
   //   setLoading(true);
@@ -102,12 +108,18 @@ const Postdetail = () => {
         <button
           type="button"
           className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+          onClick={() => {
+            moveUpdate();
+          }}
         >
           수정
         </button>
         <button
           type="submit"
           className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          onClick={() => {
+            deletePost();
+          }}
         >
           삭제
         </button>

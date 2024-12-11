@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetchPostByIdQuery } from "../../redux/API/posts/postsApi";
@@ -23,22 +23,39 @@ const Postupdate = () => {
     formState: { errors },
     reset,
     setError,
+    setValue,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const updatePost = {
-      ...data,
-      createuser: "haha",
-    };
-    console.log(data);
-    try {
-      //   await addPost(newPost).unwrap();
-      alert("post update success");
-      navigate("/freeboard", { replace: true });
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // setValue("title", post.title);
+    // setValue("content", post.content);
+    // setValue("category", post.category);
+  }, [post, setValue]);
+
+  useEffect(() => {
+    if (post) {
+      reset(post);
     }
+  }, [post, reset]);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    // const updatePost = {
+    //   ...data,
+    //   createuser: "haha",
+    // };
+    // console.log(data);
+    // try {
+    //   //   await addPost(newPost).unwrap();
+    //   alert("post update success");
+    //   navigate("/freeboard", { replace: true });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +93,12 @@ const Postupdate = () => {
               </label>
               <div className="mt-2">
                 <select
-                  {...register("category", { required: true })}
+                  {...register("category", {
+                    required: true,
+                    onChange: (e) => {
+                      console.log(e.target.value);
+                    },
+                  })}
                   id="category"
                   name="category"
                   autoComplete="category-name"
@@ -106,8 +128,14 @@ const Postupdate = () => {
                   name="about"
                   rows={20}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                  {...register("content", { required: true })}
-                  value={post}
+                  // {...register("content", { required: true })}
+                  {...register("content", {
+                    required: true,
+                    onChange: (e) => {
+                      console.log(e);
+                    },
+                  })}
+                  // value={post.content}
                 />
               </div>
             </div>
@@ -116,7 +144,7 @@ const Postupdate = () => {
 
         <div className="mt-6 flex items-center justify-end gap-x-2 mb-60">
           <button
-            type="button"
+            type="submit"
             className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
           >
             수정
