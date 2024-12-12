@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFetchPostByIdQuery } from "../../redux/API/posts/postsApi";
+import {
+  useFetchPostByIdQuery,
+  useUpdatePostMutation,
+} from "../../redux/API/posts/postsApi";
 
 const categories = [
   { value: "", label: "선택해주세요" },
@@ -14,45 +17,51 @@ const Postupdate = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data: post, isLoading, isError } = useFetchPostByIdQuery(id);
+  const { data: post, isLoading, isError, refetch } = useFetchPostByIdQuery(id);
+  const [updatePost] = useUpdatePostMutation();
   console.log(post);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setError,
     setValue,
-  } = useForm();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // setValue("title", post.title);
-    // setValue("content", post.content);
-    // setValue("category", post.category);
-  }, [post, setValue]);
+    reset,
+  } = useForm({
+    mode: "onChange",
+  });
 
   useEffect(() => {
     if (post) {
-      reset(post);
+      window.scrollTo(0, 0);
+      setValue("id", post.id);
+      setValue("title", post.title);
+      setValue("content", post.content);
+      setValue("category", post.category);
     }
-  }, [post, reset]);
+  }, [post, setValue]);
 
   const onSubmit = async (data) => {
     console.log(data);
-    // const updatePost = {
-    //   ...data,
-    //   createuser: "haha",
-    // };
-    // console.log(data);
-    // try {
-    //   //   await addPost(newPost).unwrap();
-    //   alert("post update success");
-    //   navigate("/freeboard", { replace: true });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const updatePostData = {
+      // ...data,
+      id: Number(data.id),
+      title: data.title,
+      category: data.category,
+      content: data.content,
+      createuser: "haha",
+    };
+    console.log(updatePostData);
+
+    try {
+      await updatePost({ id, updatePostData }).unwrap();
+      alert("update fin");
+      navigate("/postdetail/" + id);
+    } catch (error) {
+      console.log(error);
+    }
+    await refetch();
   };
 
   if (isLoading) return <div>Loading...</div>;

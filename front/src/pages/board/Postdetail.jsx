@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useFetchPostByIdQuery } from "../../redux/API/posts/postsApi";
+import {
+  useDeletePostMutation,
+  useFetchPostByIdQuery,
+} from "../../redux/API/posts/postsApi";
 
 const categories = ["자유", "질문", "유머"];
 
@@ -10,8 +13,9 @@ const Postdetail = () => {
   // const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: post, isLoading, isError } = useFetchPostByIdQuery(id);
+  const { data: post, isLoading, isError, refetch } = useFetchPostByIdQuery(id);
   console.log(post);
+  const [deletePost] = useDeletePostMutation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,7 +25,17 @@ const Postdetail = () => {
     navigate("/postupdate/" + id);
   };
 
-  const deletePost = () => {};
+  const deletePostClick = async (id) => {
+    console.log(id);
+    try {
+      await deletePost(id).unwrap();
+      alert("Post deleted!");
+      refetch();
+      navigate("/freeboard");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // const fetchData = async () => {
   //   setLoading(true);
@@ -118,7 +132,7 @@ const Postdetail = () => {
           type="submit"
           className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           onClick={() => {
-            deletePost();
+            deletePostClick(post.id);
           }}
         >
           삭제

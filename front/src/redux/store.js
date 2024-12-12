@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import postsApi from "./API/posts/postsApi";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
   reducer: {
@@ -9,3 +10,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(postsApi.middleware),
 });
+
+setupListeners(store.dispatch);

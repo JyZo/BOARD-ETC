@@ -34,10 +34,10 @@ const postsApi = createApi({
       invalidatesTags: ["Posts"],
     }),
     updatePost: builder.mutation({
-      query: ({ id, ...body }) => ({
+      query: ({ id, updatePost }) => ({
         url: `/update-post/${id}`,
         method: "PUT",
-        body: body,
+        body: { updatePost },
       }),
       invalidatesTags: ["Posts"],
     }),
