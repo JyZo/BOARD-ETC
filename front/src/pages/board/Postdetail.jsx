@@ -17,9 +17,9 @@ const Postdetail = () => {
   console.log(post);
   const [deletePost] = useDeletePostMutation();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   const moveUpdate = () => {
     navigate("/postupdate/" + id);
@@ -31,7 +31,7 @@ const Postdetail = () => {
       await deletePost(id).unwrap();
       alert("Post deleted!");
       refetch();
-      navigate("/freeboard");
+      // navigate("/freeboard");
     } catch (error) {
       console.log(error);
     }

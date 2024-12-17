@@ -5,6 +5,7 @@ import {
   useFetchPostByIdQuery,
   useUpdatePostMutation,
 } from "../../redux/API/posts/postsApi";
+import axios from "axios";
 
 const categories = [
   { value: "", label: "선택해주세요" },
@@ -55,7 +56,18 @@ const Postupdate = () => {
     console.log(updatePostData);
 
     try {
-      await updatePost({ id, updatePostData }).unwrap();
+      await axios.put(
+        `
+http://localhost:5000/api/post/update-post/${id}`,
+        updatePostData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // await updatePost({ id, updatePostData }).unwrap();
       alert("update fin");
       navigate("/postdetail/" + id);
     } catch (error) {

@@ -60,13 +60,18 @@ const deletePost = async (req, res) => {
   try {
     const { id } = req.params;
     const deletePost = await Post.findOneAndDelete({ id: id });
+    console.log(deletePost);
     if (!deletePost) {
+      console.log("delete");
       res.status(404).send({ message: `Post not Found` });
+    } else {
+      console.log("else");
+      res.setHeader("Content-Type", "text/html");
+      res.status(200).send({
+        message: "Post deleted suc",
+        post: deletePost,
+      });
     }
-    res.status(200).send({
-      message: "Post deleted suc",
-      post: deletePost,
-    });
   } catch (error) {
     console.error("Error delete Post", error);
     res.status(500).send({ message: `Error delete Post` });
