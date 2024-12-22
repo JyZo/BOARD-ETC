@@ -31,7 +31,7 @@ const Postdetail = () => {
       await deletePost(id).unwrap();
       alert("Post deleted!");
       refetch();
-      // navigate("/freeboard");
+      navigate("/freeboard");
     } catch (error) {
       console.log(error);
     }

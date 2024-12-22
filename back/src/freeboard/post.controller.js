@@ -5,20 +5,20 @@ const registPost = async (req, res) => {
     const newPost = await Post({ ...req.body });
 
     await newPost.save();
-    res.status(200).send({ message: "Post regist!", post: newPost });
+    return res.status(200).send({ message: "Post regist!", post: newPost });
   } catch (error) {
     console.error("Error regist Post", error);
-    res.status(500).send({ message: "Error regist Post" });
+    return res.status(500).send({ message: "Error regist Post" });
   }
 };
 
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find().sort({ id: -1 });
-    res.status(200).send(posts);
+    return res.status(200).send(posts);
   } catch (error) {
     console.error("Fail get All Posts", error);
-    res.status(500).send({ message: "Fail get All Posts" });
+    return res.status(500).send({ message: "Fail get All Posts" });
   }
 };
 
@@ -27,12 +27,13 @@ const getOnePost = async (req, res) => {
     const { id } = req.params;
     const post = await Post.findOne({ id: id });
     if (!post) {
-      res.status(404).send({ message: "Post not found" });
+      console.log("post not found");
+      return res.redirect("/freeboard");
     }
-    res.status(200).send(post);
+    return res.status(200).send(post);
   } catch (error) {
     console.error(`Error get Post`, error);
-    res.status(500).send({ message: `Error get Post` });
+    return res.status(500).send({ message: `Error get Post` });
   }
 };
 
@@ -44,15 +45,15 @@ const updatePost = async (req, res) => {
       new: true,
     });
     if (!updatePost) {
-      res.status(404).send({ message: `Post not Found` });
+      return res.status(404).send({ message: `Post not Found` });
     }
-    res.status(200).send({
+    return res.status(200).send({
       message: "Post Update suc",
       post: updatePost,
     });
   } catch (error) {
     console.error("Error update Post", error);
-    res.status(500).send({ message: `Error update Post` });
+    return res.status(500).send({ message: `Error update Post` });
   }
 };
 
@@ -60,21 +61,18 @@ const deletePost = async (req, res) => {
   try {
     const { id } = req.params;
     const deletePost = await Post.findOneAndDelete({ id: id });
-    console.log(deletePost);
     if (!deletePost) {
       console.log("delete");
-      res.status(404).send({ message: `Post not Found` });
+      return res.status(404).send({ message: `Post not Found` });
     } else {
-      console.log("else");
-      res.setHeader("Content-Type", "text/html");
-      res.status(200).send({
+      return res.status(200).send({
         message: "Post deleted suc",
         post: deletePost,
       });
     }
   } catch (error) {
     console.error("Error delete Post", error);
-    res.status(500).send({ message: `Error delete Post` });
+    return res.status(500).send({ message: `Error delete Post` });
   }
 };
 
