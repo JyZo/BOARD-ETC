@@ -4,37 +4,12 @@ import { Link } from "react-router-dom";
 import { useFetchAllPostsQuery } from "../../redux/API/posts/postsApi";
 
 const Freeboard = () => {
-  // const [posts, setPosts] = useState([]);
-
-  // useEffect(() => {
-  //   console.log("useeffect");
-  //   fetch("post.json")
-  //     .then((res) => res.json())
-  //     .then((data) => setPosts(data));
-  // }, []);
-
   const { data: posts = [] } = useFetchAllPostsQuery();
   console.log(posts.length);
 
-  // const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(20);
-
-  // const fetchData = async () => {
-  //   setLoading(true);
-  //   const response = await axios.get(
-  //     "https://jsonplaceholder.typicode.com/posts"
-  //   );
-  //   setPosts(response.data);
-  //   setLoading(false);
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  console.log(posts);
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;

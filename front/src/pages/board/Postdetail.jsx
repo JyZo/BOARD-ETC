@@ -9,17 +9,15 @@ import {
 const categories = ["자유", "질문", "유머"];
 
 const Postdetail = () => {
-  // const [post, setPost] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: post, isLoading, isError, refetch } = useFetchPostByIdQuery(id);
   console.log(post);
   const [deletePost] = useDeletePostMutation();
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const moveUpdate = () => {
     navigate("/postupdate/" + id);
@@ -36,19 +34,6 @@ const Postdetail = () => {
       console.log(error);
     }
   };
-
-  // const fetchData = async () => {
-  //   setLoading(true);
-  //   const response = await axios.get(
-  //     `https://jsonplaceholder.typicode.com/posts/${id}`
-  //   );
-  //   setPost(response.data);
-  //   setLoading(false);
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   if (isLoading) return <div>Loading...</div>;
 

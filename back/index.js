@@ -19,13 +19,11 @@ app.use(
 const postRoutes = require("./src/freeboard/post.route");
 app.use("/api/post", postRoutes);
 
-// OEqAYQSBru0oJGn8
 async function main() {
   await mongoose.connect(process.env.DB_URL);
   app.use("/", (req, res) => {
     res.send("FreeBoard Server run!");
   });
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
 main()

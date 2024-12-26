@@ -67,7 +67,6 @@ http://localhost:5000/api/post/update-post/${id}`,
           },
         }
       );
-      // await updatePost({ id, updatePostData }).unwrap();
       alert("update fin");
       navigate("/postdetail/" + id);
     } catch (error) {

@@ -1,25 +1,13 @@
 import { Link } from "react-router-dom";
-import {
-  HiMiniBars3CenterLeft,
-  HiOutlineHeart,
-  HiOutlineShoppingCart,
-} from "react-icons/hi2";
-import { IoSearchOutline } from "react-icons/io5";
-import { HiOutlineUser } from "react-icons/hi";
 import { FaHome } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-
-// import avatarImg from "../assets/avatar.png";
 import { useState } from "react";
-// import { useSelector } from "react-redux";
-// import { useAuth } from "../context/AuthContext";
 
 const navigation = [{ name: "MyPage", href: "/mypage" }];
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const cartItems = useSelector((state) => state.cart.cartItems);
 
   const currentUser = true;
   const token = false;
@@ -29,7 +17,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="mx-auto px-4 py-6 top-0 left-2/4 fixed -translate-x-1/2 w-full bg-blue-500">
+    <header className="px-4 py-6 top-0 left-2/4 fixed -translate-x-1/2 w-full bg-blue-500">
       <nav className="mx-auto flex justify-between items-center leading-[0px] w-4/5 text-white">
         {/* left side */}
         <div className="flex items-center md:gap-8 gap-2">
