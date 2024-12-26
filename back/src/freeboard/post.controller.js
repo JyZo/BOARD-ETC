@@ -57,6 +57,30 @@ const updatePost = async (req, res) => {
   }
 };
 
+// update view Count
+const updateViewCnt = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateViewCnt = await Post.findOneAndUpdate(
+      { id: id },
+      { viewcount: 99 },
+      {
+        new: true,
+      }
+    );
+    if (!updateViewCnt) {
+      return res.status(404).send({ message: `Post not Found` });
+    }
+    return res.status(200).send({
+      message: "ViewCnt Update suc",
+      post: updateViewCnt,
+    });
+  } catch (error) {
+    console.error("Error update ViewCnt", error);
+    return res.status(500).send({ message: `Error update ViewCnt` });
+  }
+};
+
 const deletePost = async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,4 +106,5 @@ module.exports = {
   getOnePost,
   updatePost,
   deletePost,
+  updateViewCnt,
 };

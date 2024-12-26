@@ -30,7 +30,21 @@ const Freeboard = () => {
     setCurrentPage(currentPage - 1);
   };
 
+  const incViewCnt = async (id) => {
+    console.log(id);
+    alert("inc View Count");
+    console.log(id);
+    alert("inc View Count");
+    try {
+      await axios.put(`http://localhost:5000/api/post/update-viewcnt/${id}`);
+      alert("update fin");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (loading) return <div>Loading....</div>;
+  console.log(posts);
   return (
     <div>
       <div className="mt-6 text-left font-semibold flex justify-between">
@@ -60,10 +74,24 @@ const Freeboard = () => {
                 {post.category}
               </td>
               <td className="px-6 py-4 font-medium text-black whitespace-nowrap w-[60%]">
-                <Link to={`/postdetail/${post.id}`}>{post.title}</Link>
+                <Link
+                  to={`/postdetail/${post.id}`}
+                  onClick={() => incViewCnt(post.id)}
+                >
+                  {post.title}
+                </Link>
               </td>
               <td className="px-6 py-4 font-medium text-black whitespace-nowrap w-[8%]">
-                2024-11-06
+                {post.createdAt !== undefined ? (
+                  new Intl.DateTimeFormat("ko-KR", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour12: false,
+                  }).format(new Date(post.createdAt))
+                ) : (
+                  <div> </div>
+                )}
               </td>
               <td className="px-6 py-4 font-medium text-black whitespace-nowrap w-[12%]">
                 1
