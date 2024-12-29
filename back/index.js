@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 app.use(cookieParser());
 //cors
 app.use(express.json());
-app.use(morgan);
+app.use(morgan());
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
@@ -28,7 +28,9 @@ app.use(
 
 //route
 const postRoutes = require("./src/freeboard/post.route");
+const userRoutes = require("./src/user/user.route");
 app.use("/api/post", postRoutes);
+app.use("/api/user", userRoutes);
 
 async function main() {
   await mongoose.connect(process.env.DB_URL);
