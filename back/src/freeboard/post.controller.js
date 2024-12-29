@@ -61,9 +61,10 @@ const updatePost = async (req, res) => {
 const updateViewCnt = async (req, res) => {
   try {
     const { id } = req.params;
+    const getViewCnt = await Post.findOne({ id: id });
     const updateViewCnt = await Post.findOneAndUpdate(
       { id: id },
-      { viewcount: 99 },
+      { viewcount: getViewCnt.viewcount + 1 },
       {
         new: true,
       }

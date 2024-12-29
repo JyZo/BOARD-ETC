@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { useFetchAllPostsQuery } from "../../redux/API/posts/postsApi";
 
 const Freeboard = () => {
-  const { data: posts = [] } = useFetchAllPostsQuery();
+  const { data: posts = [] } = useFetchAllPostsQuery({
+    pollingInterval: 2000,
+    refetchOnMountOrArgChange: true,
+    skip: false,
+  });
   console.log(posts.length);
 
   const [loading, setLoading] = useState(false);
@@ -33,11 +37,8 @@ const Freeboard = () => {
   const incViewCnt = async (id) => {
     console.log(id);
     alert("inc View Count");
-    console.log(id);
-    alert("inc View Count");
     try {
       await axios.put(`http://localhost:5000/api/post/update-viewcnt/${id}`);
-      alert("update fin");
     } catch (error) {
       console.log(error);
     }
@@ -94,7 +95,7 @@ const Freeboard = () => {
                 )}
               </td>
               <td className="px-6 py-4 font-medium text-black whitespace-nowrap w-[12%]">
-                1
+                {post.viewcount}
               </td>
             </tr>
           ))}

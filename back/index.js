@@ -3,11 +3,22 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
+const helmet = require("helmet");
 
 const mongoose = require("mongoose");
 
+//cookieParser
+app.use(cookieParser());
 //cors
 app.use(express.json());
+app.use(morgan);
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 app.use(
   cors({
     origin: ["http://localhost:5173"],
