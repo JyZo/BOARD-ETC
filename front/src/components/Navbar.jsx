@@ -9,7 +9,7 @@ const navigation = [{ name: "MyPage", href: "/mypage" }];
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const currentUser = true;
+  const currentUser = false;
   const token = false;
 
   const handleLogOut = () => {

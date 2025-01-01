@@ -10,6 +10,7 @@ const generatedOTP = require("../utils/generatedOTP");
 const registUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    console.log(req.body);
 
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -21,7 +22,7 @@ const registUser = async (req, res) => {
     console.log(user);
 
     if (user) {
-      return res.json({
+      return res.status(500).json({
         message: "Already register email",
       });
     }
@@ -37,31 +38,6 @@ const registUser = async (req, res) => {
 
     const newUser = new User(payload);
     const save = await newUser.save();
-
-    // if (!process.env.RESEND_API) {
-    //   console.log("Provide RESEND_API in side the .env file");
-    // }
-
-    // const resend = new Resend(process.env.RESEND_API);
-
-    // const VerifyEmailUrl = `https://comic.naver.com/webtoon/list?titleId=131385`;
-
-    // console.log(email);
-
-    // const { data, error } = await resend.emails.send({
-    //   from: "Acme <onboarding@resend.dev>",
-    //   to: email,
-    //   subject: "Verify email from JyZo",
-    //   html: `<p>Dear ${name}</p>
-    //                 <p>Thank you for registering Binkeyit.</p>
-    //                 <a href=${VerifyEmailUrl} style="color:black;background :orange;margin-top : 10px,padding:20px,display:block"> Verify Email</a> `,
-    // });
-
-    // if (error) {
-    //   return console.error({ error });
-    // }
-
-    // console.log(data);
 
     return res.json({
       message: "User register successfully",

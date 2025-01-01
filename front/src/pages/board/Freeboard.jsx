@@ -9,7 +9,18 @@ const Freeboard = () => {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
+
+  const categories = ["전체", "자유", "질문", "유머"];
+
   console.log(posts.length);
+  const [selectedCategory, setSelectedCategory] = useState("전체");
+
+  const filteredPosts =
+    selectedCategory === "전체"
+      ? posts
+      : posts.filter(
+          (post) => post.category === selectedCategory.toLowerCase()
+        );
 
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,8 +46,6 @@ const Freeboard = () => {
   };
 
   const incViewCnt = async (id) => {
-    console.log(id);
-    alert("inc View Count");
     try {
       await axios.put(`http://localhost:5000/api/post/update-viewcnt/${id}`);
     } catch (error) {
@@ -45,7 +54,7 @@ const Freeboard = () => {
   };
 
   if (loading) return <div>Loading....</div>;
-  console.log(posts);
+  console.log(filteredPosts);
   return (
     <div>
       <div className="mt-6 text-left font-semibold flex justify-between">
@@ -53,6 +62,22 @@ const Freeboard = () => {
         <Link to="/postregist">
           <button>글작성</button>
         </Link>
+      </div>
+      <div>
+        <div className="mb-8 flex items-center">
+          <select
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            name="category"
+            id="category"
+            className="border bg-[#EAEAEA] border-gray-300 rounded-md px-4 py-2 focus:outline-none"
+          >
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <hr className="h-1 my-10 bg-blue-400"></hr>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-auto">
@@ -66,7 +91,7 @@ const Freeboard = () => {
           </tr>
         </thead>
         <tbody>
-          {currentPosts.map((post) => (
+          {filteredPosts.map((post) => (
             <tr key={post.id} className="bg-whiteborder-b w-[100%]">
               <td className="px-2 py-4 font-medium text-black whitespace-nowrap text-center w-[7%]">
                 {post.id}

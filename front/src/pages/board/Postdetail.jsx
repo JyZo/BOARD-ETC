@@ -24,7 +24,6 @@ const Postdetail = () => {
   };
 
   const deletePostClick = async (id) => {
-    console.log(id);
     try {
       await deletePost(id).unwrap();
       alert("Post deleted!");
