@@ -8,7 +8,7 @@ const registPost = async (req, res) => {
     return res.status(200).send({ message: "Post regist!", post: newPost });
   } catch (error) {
     console.error("Error regist Post", error);
-    return res.status(500).send({ message: "Error regist Post" });
+    return res.status(500).send({ message: error.message || error });
   }
 };
 
@@ -18,7 +18,7 @@ const getAllPosts = async (req, res) => {
     return res.status(200).send(posts);
   } catch (error) {
     console.error("Fail get All Posts", error);
-    return res.status(500).send({ message: "Fail get All Posts" });
+    return res.status(500).send({ message: error.message || error });
   }
 };
 
@@ -33,7 +33,7 @@ const getOnePost = async (req, res) => {
     return res.status(200).send(post);
   } catch (error) {
     console.error(`Error get Post`, error);
-    return res.status(500).send({ message: `Error get Post` });
+    return res.status(500).send({ message: error.message || error });
   }
 };
 
@@ -45,7 +45,7 @@ const updatePost = async (req, res) => {
       new: true,
     });
     if (!updatePost) {
-      return res.status(404).send({ message: `Post not Found` });
+      return res.status(404).send({ message: error.message || error });
     }
     return res.status(200).send({
       message: "Post Update suc",
@@ -53,7 +53,7 @@ const updatePost = async (req, res) => {
     });
   } catch (error) {
     console.error("Error update Post", error);
-    return res.status(500).send({ message: `Error update Post` });
+    return res.status(500).send({ message: error.message || error });
   }
 };
 
@@ -78,7 +78,7 @@ const updateViewCnt = async (req, res) => {
     });
   } catch (error) {
     console.error("Error update ViewCnt", error);
-    return res.status(500).send({ message: `Error update ViewCnt` });
+    return res.status(500).send({ message: error.message || error });
   }
 };
 
@@ -97,7 +97,7 @@ const deletePost = async (req, res) => {
     }
   } catch (error) {
     console.error("Error delete Post", error);
-    return res.status(500).send({ message: `Error delete Post` });
+    return res.status(500).send({ message: error.message || error });
   }
 };
 
