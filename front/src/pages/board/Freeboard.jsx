@@ -30,10 +30,10 @@ const Freeboard = () => {
   const indexOfFirst = indexOfLast - postsPerPage;
 
   let currentPosts = 0;
-  currentPosts = posts.slice(indexOfFirst, indexOfLast);
+  currentPosts = filteredPosts.slice(indexOfFirst, indexOfLast);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(filteredPosts.length / postsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -55,6 +55,7 @@ const Freeboard = () => {
 
   if (loading) return <div>Loading....</div>;
   console.log(filteredPosts);
+  console.log(currentPosts);
   return (
     <div>
       <div className="mt-6 text-left font-semibold flex justify-between">
@@ -91,7 +92,7 @@ const Freeboard = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredPosts.map((post) => (
+          {currentPosts.map((post) => (
             <tr key={post.id} className="bg-whiteborder-b w-[100%]">
               <td className="px-2 py-4 font-medium text-black whitespace-nowrap text-center w-[7%]">
                 {post.id}

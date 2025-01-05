@@ -39,7 +39,7 @@ const Navbar = () => {
             {currentUser ? (
               <>
                 <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                  <FaUser className="size-12" />
+                  <FaRegUser className="size-12" />
                 </button>
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40">
@@ -72,7 +72,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login">
-                  <FaRegUser className="size-12" />
+                  <FaUser className="size-12" />
                 </Link>
               </>
             )}
