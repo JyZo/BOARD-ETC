@@ -10,21 +10,22 @@ const {
 } = require("./post.controller");
 const router = express.Router();
 
-//regist Post
+//게시글 등록
 router.post("/postregist", registPost);
 
-//get all post
+//전체 게시글 가져오기
 router.get("/allpost", getAllPosts);
 
-//get one post
+//게시글 상세 조회
 router.get("/post-detail/:id", getOnePost);
 
-//update post
+//게시글 수정
 router.put("/update-post/:id", updatePost);
 
+//조회수 증가
 router.put("/update-viewcnt/:id", updateViewCnt);
 
-//delete post
+//게시글 삭제
 router.delete("/delete-post/:id", deletePost);
 
 module.exports = router;

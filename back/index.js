@@ -9,8 +9,9 @@ const helmet = require("helmet");
 
 const mongoose = require("mongoose");
 
-//cookieParser
+//쿠키관련 모듈
 app.use(cookieParser());
+
 //cors
 app.use(express.json());
 app.use(morgan());
@@ -26,7 +27,7 @@ app.use(
   })
 );
 
-//route
+//라우트 세팅
 const postRoutes = require("./src/freeboard/post.route");
 const userRoutes = require("./src/user/user.route");
 app.use("/api/post", postRoutes);

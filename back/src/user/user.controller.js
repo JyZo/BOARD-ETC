@@ -7,10 +7,10 @@ const { generatedAccessToken } = require("../utils/generatedAccessToken");
 const { generatedRefreshToken } = require("../utils/generatedRefreshToken");
 const generatedOTP = require("../utils/generatedOTP");
 
+//사용자 등록
 const registUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    console.log(req.body);
 
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -19,7 +19,6 @@ const registUser = async (req, res) => {
     }
 
     const user = await User.findOne({ email });
-    console.log(user);
 
     if (user) {
       return res.status(500).json({
@@ -50,6 +49,7 @@ const registUser = async (req, res) => {
   }
 };
 
+//사용자 로그인
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -68,6 +68,7 @@ const loginUser = async (req, res) => {
       });
     }
 
+    //패스워드 암복호화 비교
     const checkPassword = await bcryptjs.compare(password, user.password);
 
     if (!checkPassword) {
@@ -76,6 +77,7 @@ const loginUser = async (req, res) => {
       });
     }
 
+    //엑세스 토큰, 리프레쉬 토큰 생성
     const accessToken = await generatedAccessToken(user._id);
     const refreshToken = await generatedRefreshToken(user._id);
 
@@ -85,9 +87,7 @@ const loginUser = async (req, res) => {
       sameSite: "None",
     };
 
-    console.log(accessToken);
-    console.log(refreshToken);
-
+    //쿠키를 이용한 토큰 관리
     res.cookie("accessToken", accessToken, cookiesOption);
     res.cookie("refreshToken", refreshToken, cookiesOption);
 
@@ -105,6 +105,7 @@ const loginUser = async (req, res) => {
   }
 };
 
+//사용자 로그아웃
 const logoutUser = async (req, res) => {
   try {
     const userId = req.userId;
@@ -115,6 +116,7 @@ const logoutUser = async (req, res) => {
       sameSite: "None",
     };
 
+    //쿠키에서 토큰 제거
     res.clearCookie("accessToken", cookiesOption);
     res.clearCookie("refreshToken", cookiesOption);
 
@@ -132,6 +134,7 @@ const logoutUser = async (req, res) => {
   }
 };
 
+//유저 정보 업데이트
 const updateUser = async (req, res) => {
   try {
     const userId = req.userId;
@@ -161,18 +164,19 @@ const updateUser = async (req, res) => {
   }
 };
 
+//패스워드 찾기
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
 
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) {
       return res.status(400).json({
         message: "Email not available",
       });
     }
 
+    //OTP 생성 및 만료시간 설정
     const otp = generatedOTP();
     const expiredTime = new Date() + 60 * 60 * 1000; //
 
@@ -181,6 +185,7 @@ const forgotPassword = async (req, res) => {
       forgot_password_expiry: new Date(expiredTime).toISOString(),
     });
 
+    //라이브러리 사용한 opt번호 메일 전송 내꺼만 가능
     const resend = new Resend(process.env.RESEND_API);
 
     const { data, error } = await resend.emails.send({
@@ -204,6 +209,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+//OTP 인증
 const verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
@@ -245,6 +251,7 @@ const verifyOTP = async (req, res) => {
   }
 };
 
+//비밀번호 초기화
 const resetPassword = async (req, res) => {
   try {
     const { email, newPassword, confirmPassword } = req.body;
@@ -285,6 +292,7 @@ const resetPassword = async (req, res) => {
   }
 };
 
+//토큰 리프레쉬
 const refreshToken = async (req, res) => {
   try {
     const refreshToken =

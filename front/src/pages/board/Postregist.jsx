@@ -26,7 +26,6 @@ const Postregist = () => {
       ...data,
       createuser: "haha",
     };
-    console.log(data);
     try {
       await addPost(newPost).unwrap();
       alert("post regiest success");
@@ -76,7 +75,6 @@ const Postregist = () => {
                   autoComplete="category-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6 pl-2"
                 >
-                  {/* <option value="default">선택해 주세요</option> */}
                   {categories.map((category, index) => (
                     <option key={index} value={category.value}>
                       {category.label}

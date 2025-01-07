@@ -12,7 +12,6 @@ const Freeboard = () => {
 
   const categories = ["전체", "자유", "질문", "유머"];
 
-  console.log(posts.length);
   const [selectedCategory, setSelectedCategory] = useState("전체");
 
   const filteredPosts =
@@ -53,9 +52,11 @@ const Freeboard = () => {
     }
   };
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
+
   if (loading) return <div>Loading....</div>;
-  console.log(filteredPosts);
-  console.log(currentPosts);
   return (
     <div>
       <div className="mt-6 text-left font-semibold flex justify-between">

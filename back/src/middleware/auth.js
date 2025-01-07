@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+
+//사용자 토큰 미들웨어 토큰 인증
 const auth = async (req, res, next) => {
   try {
     const token =

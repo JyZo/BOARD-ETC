@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//사용자 계정 정보 스키마
 const userSchema = new mongoose.Schema(
   {
     name: {

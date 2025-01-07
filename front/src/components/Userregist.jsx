@@ -21,10 +21,7 @@ const Userregist = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
-    console.log(name);
-    console.log(value);
 
     setData((preve) => {
       return {
@@ -35,8 +32,6 @@ const Userregist = () => {
   };
 
   const onSubmit = async () => {
-    console.log(data.password);
-    console.log(data.confirmPassword);
     if (data.password !== data.confirmPassword) {
       alert("password and confirm password must be same");
       return;
@@ -47,9 +42,6 @@ const Userregist = () => {
         "http://localhost:5000/api/user/userregist",
         data
       );
-      console.log("asdfasfsdfasdasdf");
-      console.log(response);
-      console.log(response.status);
       alert(response.data.message);
 
       if (response.status !== 200) {

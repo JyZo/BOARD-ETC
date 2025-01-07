@@ -20,7 +20,6 @@ const Postupdate = () => {
 
   const { data: post, isLoading, isError, refetch } = useFetchPostByIdQuery(id);
   const [updatePost] = useUpdatePostMutation();
-  console.log(post);
 
   const {
     register,
@@ -44,16 +43,13 @@ const Postupdate = () => {
   }, [post, setValue]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const updatePostData = {
-      // ...data,
       id: Number(data.id),
       title: data.title,
       category: data.category,
       content: data.content,
       createuser: "haha",
     };
-    console.log(updatePostData);
 
     try {
       await axios.put(
@@ -93,7 +89,6 @@ const Postupdate = () => {
                   type="text"
                   autoComplete="street-address"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 mb-6 pl-2"
-                  // value={post.title}
                   {...register("title", { required: true })}
                 />
                 {errors.title && <p>{errors.title.message}</p>}
@@ -109,16 +104,13 @@ const Postupdate = () => {
                   <select
                     {...register("category", {
                       required: true,
-                      onChange: (e) => {
-                        console.log(e.target.value);
-                      },
+                      onChange: (e) => {},
                     })}
                     id="category"
                     name="category"
                     autoComplete="category-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6 pl-2"
                   >
-                    {/* <option value="default">선택해 주세요</option> */}
                     {categories.map((category, index) => (
                       <option key={index} value={category.value}>
                         {category.label}
@@ -142,14 +134,10 @@ const Postupdate = () => {
                     name="about"
                     rows={20}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                    // {...register("content", { required: true })}
                     {...register("content", {
                       required: true,
-                      onChange: (e) => {
-                        console.log(e);
-                      },
+                      onChange: (e) => {},
                     })}
-                    // value={post.content}
                   />
                 </div>
               </div>

@@ -10,6 +10,7 @@ import Postdetail from "../pages/board/Postdetail";
 import Userregist from "../components/Userregist";
 import Postupdate from "../pages/board/Postupdate";
 
+//리액트 라우터 세팅
 const router = createBrowserRouter([
   {
     path: "/",

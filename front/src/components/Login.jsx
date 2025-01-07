@@ -20,10 +20,7 @@ const Login = () => {
   } = useForm();
 
   const handleChange = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
-    console.log(name);
-    console.log(value);
 
     setData((preve) => {
       return {
@@ -41,9 +38,7 @@ const Login = () => {
         "http://localhost:5000/api/user/login",
         data
       );
-      console.log("asdfasfsdfasdasdf");
-      console.log(response);
-      console.log(response.status);
+
       alert(response.data.message);
 
       if (response.status !== 200) {
@@ -144,12 +139,6 @@ const Login = () => {
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">
           Not a member?
-          {/* <a
-            href="#"
-            className="font-semibold text-indigo-600 hover:text-indigo-500"
-          >
-            
-          </a> */}
           <Link
             to={"/userregist"}
             className="font-semibold text-blue-600 hover:text-blue-500"

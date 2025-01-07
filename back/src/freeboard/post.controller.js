@@ -1,5 +1,6 @@
 const Post = require("./post.model");
 
+//게시글 등록
 const registPost = async (req, res) => {
   try {
     const newPost = await Post({ ...req.body });
@@ -12,6 +13,7 @@ const registPost = async (req, res) => {
   }
 };
 
+//모든 게시글 가져오기
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find().sort({ id: -1 });
@@ -22,12 +24,12 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+//게시글 하나 가져오기
 const getOnePost = async (req, res) => {
   try {
     const { id } = req.params;
     const post = await Post.findOne({ id: id });
     if (!post) {
-      console.log("post not found");
       return res.redirect("/freeboard");
     }
     return res.status(200).send(post);
@@ -37,7 +39,7 @@ const getOnePost = async (req, res) => {
   }
 };
 
-// update post data
+//게시글 업데이트
 const updatePost = async (req, res) => {
   try {
     const { id } = req.params;
@@ -57,7 +59,7 @@ const updatePost = async (req, res) => {
   }
 };
 
-// update view Count
+//조회수 업데이트
 const updateViewCnt = async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,12 +84,12 @@ const updateViewCnt = async (req, res) => {
   }
 };
 
+//게시글 삭제
 const deletePost = async (req, res) => {
   try {
     const { id } = req.params;
     const deletePost = await Post.findOneAndDelete({ id: id });
     if (!deletePost) {
-      console.log("delete");
       return res.status(404).send({ message: `Post not Found` });
     } else {
       return res.status(200).send({
