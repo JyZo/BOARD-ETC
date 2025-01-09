@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+//rtkquery api 세팅
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/post",
   credentials: "include",

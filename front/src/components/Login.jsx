@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const [showPW, setShowPW] = useState(false);
 
   const {
     register,
@@ -113,17 +116,23 @@ const Login = () => {
                 </a>
               </div>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 relative">
               <input
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="current-password"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6"
+                className="left-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6"
                 {...register("password", { required: true })}
                 onChange={handleChange}
               />
+              <div
+                onClick={() => setShowPW((preve) => !preve)}
+                className="w-6 h-6 absolute right-1 top-2.5 text-gray-900"
+              >
+                {showPW ? <AiFillEye /> : <AiFillEyeInvisible />}
+              </div>
             </div>
           </div>
 
