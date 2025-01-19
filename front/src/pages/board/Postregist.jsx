@@ -55,7 +55,7 @@ const Postregist = () => {
                 name="street-address"
                 type="text"
                 autoComplete="street-address"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 mb-6 pl-2"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 mb-6 pl-2 focus:outline-none"
                 {...register("title", { required: true })}
               />
               {errors.title && <p>{errors.title.message}</p>}
@@ -73,7 +73,7 @@ const Postregist = () => {
                   id="category"
                   name="category"
                   autoComplete="category-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6 pl-2"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6 pl-2 focus:outline-none"
                 >
                   {categories.map((category, index) => (
                     <option key={index} value={category.value}>
@@ -97,7 +97,7 @@ const Postregist = () => {
                   id="about"
                   name="about"
                   rows={20}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 focus:outline-none pl-2"
                   defaultValue={""}
                   {...register("content", { required: true })}
                 />
