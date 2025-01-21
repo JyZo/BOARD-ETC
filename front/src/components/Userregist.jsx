@@ -50,17 +50,17 @@ const Userregist = () => {
 
       if (response.status !== 200) {
         alert(response.error);
+      } else {
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        navigate("/login");
       }
-
-      setData({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-      navigate("/login");
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   };
 
@@ -155,7 +155,7 @@ const Userregist = () => {
             <input
               id="confirmPassword"
               name="confirmPassword"
-              type="password"
+              type={showConfirmPW ? "text" : "password"}
               autoComplete="current-confirmPassword"
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
