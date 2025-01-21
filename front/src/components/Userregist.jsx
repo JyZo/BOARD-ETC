@@ -49,7 +49,7 @@ const Userregist = () => {
       alert(response.data.message);
 
       if (response.status !== 200) {
-        alert(response.error);
+        alert(response.data.message);
       } else {
         setData({
           name: "",

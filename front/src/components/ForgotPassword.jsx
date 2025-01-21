@@ -4,15 +4,12 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const Login = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
     email: "",
-    password: "",
   });
-
-  const [showPW, setShowPW] = useState(false);
 
   const {
     register,
@@ -34,29 +31,19 @@ const Login = () => {
   };
 
   const onSubmit = async () => {
-    console.log(data.password);
-
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/user/login",
+      const response = await axios.put(
+        "http://localhost:5000/api/user/forgotpassword",
         data
       );
-
-      // alert(response.data.message);
 
       if (response.status !== 200) {
         alert(response.data.message);
       } else {
-        console.log(response);
-
-        localStorage.setItem("accesstoken", response.data.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.data.refreshToken);
-
         setData({
           email: "",
-          password: "",
         });
-        navigate("/");
+        navigate("/verifyotp");
       }
     } catch (error) {
       alert(error.response.data.message);
@@ -72,7 +59,7 @@ const Login = () => {
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Sign in to your account
+          Enter in to your Email address
         </h2>
       </div>
 
@@ -105,64 +92,17 @@ const Login = () => {
           </div>
 
           <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Password
-              </label>
-              <div className="text-sm">
-                <Link
-                  to={"/forgotpassword"}
-                  className="font-semibold text-blue-600 hover:text-blue-500"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-            </div>
-            <div className="mt-2 relative">
-              <input
-                id="password"
-                name="password"
-                type={showPW ? "text" : "password"}
-                autoComplete="current-password"
-                required
-                className="left-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 focus:outline-none sm:text-sm/6 pl-2"
-                {...register("password", { required: true })}
-                onChange={handleChange}
-              />
-              <div
-                onClick={() => setShowPW((preve) => !preve)}
-                className="w-6 h-6 absolute right-1 top-2.5 text-gray-900"
-              >
-                {showPW ? <AiFillEye /> : <AiFillEyeInvisible />}
-              </div>
-            </div>
-          </div>
-
-          <div>
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-blue-400 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
             >
-              Sign in
+              Send OTP
             </button>
           </div>
         </form>
-
-        <p className="mt-10 text-center text-sm/6 text-gray-500">
-          Not a member?
-          <Link
-            to={"/userregist"}
-            className="font-semibold text-blue-600 hover:text-blue-500"
-          >
-            Sign Up!
-          </Link>
-        </p>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default ForgotPassword;

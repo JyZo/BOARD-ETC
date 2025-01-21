@@ -9,6 +9,8 @@ import Postregist from "../pages/board/Postregist";
 import Postdetail from "../pages/board/Postdetail";
 import Userregist from "../components/Userregist";
 import Postupdate from "../pages/board/Postupdate";
+import ForgotPassword from "../components/ForgotPassword";
+import OtpVerification from "../components/OtpVerification";
 
 //리액트 라우터 세팅
 const router = createBrowserRouter([
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: "/snack",
         element: <div>snack</div>,
+      },
+      {
+        path: "/forgotpassword",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/verifyotp",
+        element: <OtpVerification />,
       },
     ],
   },
