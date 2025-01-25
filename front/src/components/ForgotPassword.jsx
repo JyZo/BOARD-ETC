@@ -40,10 +40,12 @@ const ForgotPassword = () => {
       if (response.status !== 200) {
         alert(response.data.message);
       } else {
+        navigate("/verifyotp", {
+          state: data,
+        });
         setData({
           email: "",
         });
-        navigate("/verifyotp");
       }
     } catch (error) {
       alert(error.response.data.message);
