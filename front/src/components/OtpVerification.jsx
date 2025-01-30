@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -7,6 +7,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 const OtpVerification = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const inputRef = useRef([]);
 
   const [data, setData] = useState(["", "", "", "", "", ""]);
 
@@ -20,16 +21,20 @@ const OtpVerification = () => {
 
   const onSubmit = async () => {
     console.log(location);
-    // console.log("location", location);
+
     try {
       const response = await axios.put(
         "http://localhost:5000/api/user/verifyotp",
-        data
+        {
+          otp: data.join(""),
+          email: location?.state?.email,
+        }
       );
 
       if (response.status !== 200) {
         alert(response.data.message);
       } else {
+        alert(response.data.message);
         setData(["", "", "", "", "", ""]);
       }
     } catch (error) {
@@ -71,6 +76,10 @@ const OtpVerification = () => {
                     key={"otp" + index}
                     type="text"
                     id="otp"
+                    ref={(ref) => {
+                      inputRef.current[index] = ref;
+                      return ref;
+                    }}
                     value={data[index]}
                     onChange={(e) => {
                       const value = e.target.value;
@@ -79,6 +88,11 @@ const OtpVerification = () => {
                       const newData = [...data];
                       newData[index] = value;
                       setData(newData);
+
+                      if (index < 5) {
+                        console.log(index);
+                        inputRef.current[index + 1].focus();
+                      }
                     }}
                     maxLength={1}
                     className="bg-blue-50 w-full max-w-16 p-2 border rounded outline-none focus:border-primary-200 text-center font-semibold"
