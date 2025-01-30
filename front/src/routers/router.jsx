@@ -7,10 +7,11 @@ import Freeboard from "../pages/board/Freeboard";
 import Login from "../components/Login";
 import Postregist from "../pages/board/Postregist";
 import Postdetail from "../pages/board/Postdetail";
-import Userregist from "../components/Userregist";
+import Userregist from "../pages/user/Userregist";
 import Postupdate from "../pages/board/Postupdate";
-import ForgotPassword from "../components/ForgotPassword";
-import OtpVerification from "../components/OtpVerification";
+import ForgotPassword from "../pages/user/ForgotPassword";
+import OtpVerification from "../pages/user/OtpVerification";
+import ResetPassword from "../pages/user/ResetPassword";
 
 //리액트 라우터 세팅
 const router = createBrowserRouter([
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "/verifyotp",
         element: <OtpVerification />,
+      },
+      {
+        path: "/resetpassword",
+        element: <ResetPassword />,
       },
     ],
   },

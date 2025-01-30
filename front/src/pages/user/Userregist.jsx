@@ -145,7 +145,7 @@ const Userregist = () => {
         <div>
           <div className="flex items-center justify-between">
             <label
-              htmlFor="passwordconfirm"
+              htmlFor="confirmPassword"
               className="block text-sm/6 font-medium text-gray-900"
             >
               Password confirm

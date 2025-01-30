@@ -215,10 +215,6 @@ const verifyOTP = async (req, res) => {
     const { email, otp } = req.body;
     const user = await User.findOne({ email });
 
-    console.log(email);
-    console.log(otp);
-    console.log(user);
-
     if (!email || !otp) {
       return res.status(400).json({
         message: "provide email, otp",
@@ -259,6 +255,10 @@ const verifyOTP = async (req, res) => {
 const resetPassword = async (req, res) => {
   try {
     const { email, newPassword, confirmPassword } = req.body;
+
+    console.log(email);
+    console.log(newPassword);
+    console.log(confirmPassword);
 
     if (!email || !newPassword || !confirmPassword) {
       return res.status(400).json({

@@ -36,6 +36,12 @@ const OtpVerification = () => {
       } else {
         alert(response.data.message);
         setData(["", "", "", "", "", ""]);
+        navigate("/resetpassword", {
+          state: {
+            data: response.data,
+            email: location?.state?.email,
+          },
+        });
       }
     } catch (error) {
       alert(error.response.data.message);
