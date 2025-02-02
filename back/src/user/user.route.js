@@ -10,6 +10,7 @@ const {
   resetPassword,
   verifyOTP,
   refreshToken,
+  userDetail,
 } = require("./user.controller");
 const auth = require("../middleware/auth");
 
@@ -38,5 +39,8 @@ router.put("/resetpassword", resetPassword);
 
 //토큰 초기화
 router.post("/refresh-token", refreshToken);
+
+//로그인 유저 정보
+router.get("/userdetail", auth, userDetail);
 
 module.exports = router;

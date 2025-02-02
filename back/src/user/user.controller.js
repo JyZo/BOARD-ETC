@@ -52,10 +52,7 @@ const registUser = async (req, res) => {
 //사용자 로그인
 const loginUser = async (req, res) => {
   try {
-    console.log(req.body);
     const { email, password } = req.body;
-    console.log(email);
-    console.log(password);
 
     const user = await User.findOne({ email });
 
@@ -79,6 +76,11 @@ const loginUser = async (req, res) => {
         message: "Check your password",
       });
     }
+
+    //로그인 시간 업데이트
+    const updateUser = await User.findByIdAndUpdate(user?._id, {
+      last_login_date: new Date(),
+    });
 
     //엑세스 토큰, 리프레쉬 토큰 생성
     const accessToken = await generatedAccessToken(user._id);
@@ -244,6 +246,12 @@ const verifyOTP = async (req, res) => {
       });
     }
 
+    //otp 정보 삭제
+    const updateUser = await User.findByIdAndUpdate(user?._id, {
+      forgot_password_otp: "",
+      forgot_password_expiry: "",
+    });
+
     return res.json({
       message: "OTP verified!!",
     });
@@ -349,6 +357,24 @@ const refreshToken = async (req, res) => {
   }
 };
 
+//로그인 유저정보 가져오기
+const userDetail = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const user = await User.findById(userId).select("-password -refresh_token");
+
+    return res.json({
+      message: "user detail",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+    });
+  }
+};
+
 module.exports = {
   registUser,
   loginUser,
@@ -358,4 +384,5 @@ module.exports = {
   verifyOTP,
   resetPassword,
   refreshToken,
+  userDetail,
 };

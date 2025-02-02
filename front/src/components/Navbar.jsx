@@ -3,14 +3,16 @@ import { FaHome } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const navigation = [{ name: "MyPage", href: "/mypage" }];
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const currentUser = false;
   const token = false;
+  const user = useSelector((state) => state?.user);
+  console.log("user data", user);
 
   const handleLogOut = () => {
     console.log("logout");
