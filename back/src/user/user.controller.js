@@ -52,7 +52,10 @@ const registUser = async (req, res) => {
 //사용자 로그인
 const loginUser = async (req, res) => {
   try {
+    console.log(req.body);
     const { email, password } = req.body;
+    console.log(email);
+    console.log(password);
 
     const user = await User.findOne({ email });
 

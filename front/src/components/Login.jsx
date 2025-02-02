@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Axios from "../utils/Axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,15 +35,32 @@ const Login = () => {
   };
 
   const onSubmit = async () => {
-    console.log(data.password);
+    console.log(data);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/user/login",
-        data
-      );
+      const response = await Axios({
+        url: "/api/user/login",
+        method: "post",
+        data: data,
+      });
+      //다른 방식 axios 사용법 메모
+      // await Axios.post("/api/user/login", {
+      //   ...data,
+      // })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error.response.data.message);
+      // });
 
-      // alert(response.data.message);
+      // async/await을 사용하면 await가 대기를 처리해주기 때문에 .then이 거의 필요하지 않습니다.
+      // 여기에 더하여 .catch 대신 일반 try..catch를 사용할 수 있다는 장점도 생깁니다.
+      // 항상 그러한 것은 아니지만, promise.then을 사용하는 것보다 async/await를 사용하는 것이 대개는 더 편리합니다.
+      // 그런데 문법 제약 때문에 async함수 바깥의 최상위 레벨 코드에선 await를 사용할 수 없습니다.
+      // 그렇기 때문에 관행처럼 .then/catch를 추가해 최종 결과나 처리되지 못한 에러를 다룹니다.
+
+      alert(response.data.message);
 
       if (response.status !== 200) {
         alert(response.data.message);
