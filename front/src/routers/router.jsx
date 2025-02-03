@@ -12,6 +12,8 @@ import Postupdate from "../pages/board/Postupdate";
 import ForgotPassword from "../pages/user/ForgotPassword";
 import OtpVerification from "../pages/user/OtpVerification";
 import ResetPassword from "../pages/user/ResetPassword";
+import UserDetail from "../components/MyPage";
+import MyPage from "../components/MyPage";
 
 //리액트 라우터 세팅
 const router = createBrowserRouter([
@@ -66,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/resetpassword",
         element: <ResetPassword />,
+      },
+      {
+        path: "/mypage/:id",
+        element: <MyPage />,
       },
     ],
   },

@@ -4,9 +4,13 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Axios from "../utils/Axios";
+import fetchUserDetail from "../utils/fetchUserDetail";
+import { setUserDetails } from "../redux/API/user/userSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({
     email: "",
@@ -69,6 +73,9 @@ const Login = () => {
 
         localStorage.setItem("accesstoken", response.data.data.accessToken);
         localStorage.setItem("refreshToken", response.data.data.refreshToken);
+
+        const userDetails = await fetchUserDetail();
+        dispatch(setUserDetails(userDetails.data));
 
         setData({
           email: "",

@@ -1,21 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/API/user/userSlice";
+import Axios from "../utils/Axios";
 
 const navigation = [{ name: "MyPage", href: "/mypage" }];
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const currentUser = false;
-  const token = false;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state?.user);
+
+  // const imsiuser = true;
   console.log("user data", user);
 
-  const handleLogOut = () => {
-    console.log("logout");
+  const handleLogOut = async () => {
+    try {
+      const response = await Axios({
+        url: "/api/user/logout",
+        method: "get",
+      });
+
+      alert(response.data.message);
+
+      if (response.status !== 200) {
+        alert(response.data.message);
+      } else {
+        console.log(response);
+
+        dispatch(logout());
+        localStorage.clear();
+
+        navigate("/");
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   return (
@@ -36,49 +61,63 @@ const Navbar = () => {
             <div>NEWS</div>
           </Link>
         </div>
-        <div className="relative flex items-center md:space-x-3 space-x-2">
-          <div>
-            {currentUser ? (
-              <>
-                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                  <FaRegUser className="size-12" />
-                </button>
-                {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40">
-                    <ul className="py-2">
-                      {navigation.map((item) => (
-                        <li
-                          key={item.name}
-                          onClick={() => setIsDropdownOpen(false)}
+        <div className="relative">
+          {/* <div> */}
+          {/* {imsiuser ? ( */}
+          {user?._id ? (
+            <>
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex flex-col items-center gap-1"
+              >
+                <FaUser className="size-12" />
+                <div></div>
+                <div className="flex w-[5rem] h-[0.1rem]">
+                  <span className="font-bold">{user.name}</span>
+                  <span> 님</span>
+                </div>
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40">
+                  <ul className="py-2">
+                    {navigation.map((item) => (
+                      <li
+                        key={item.name}
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        <Link
+                          to={item.href + `/${user?._id}`}
+                          className="block px-4 py-2 text-center text-sm hover:bg-gray-100 text-black"
                         >
-                          <Link
-                            to={item.href}
-                            className="block px-4 py-2 text-center text-sm hover:bg-gray-100 text-black"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                      <li>
-                        <button
-                          onClick={handleLogOut}
-                          className="block w-full text-center px-4 py-2 text-sm hover:bg-gray-100 text-black"
-                        >
-                          Logout
-                        </button>
+                          {item.name}
+                        </Link>
                       </li>
-                    </ul>
-                  </div>
-                )}
-              </>
-            ) : (
-              <>
-                <Link to="/login">
-                  <FaUser className="size-12" />
-                </Link>
-              </>
-            )}
-          </div>
+                    ))}
+                    <li>
+                      <button
+                        onClick={handleLogOut}
+                        className="block w-full text-center px-4 py-2 text-sm hover:bg-gray-100 text-black"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="flex flex-col items-center gap-1">
+                <FaRegUser className="size-12" />
+                <div></div>
+                <div className="w-[5rem] h-[0.1rem]">
+                  <span className="font-bold">로그인</span>
+                  <span></span>
+                </div>
+              </Link>
+            </>
+          )}
+          {/* </div> */}
         </div>
       </nav>
     </header>
