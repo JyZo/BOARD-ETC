@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useFetchAllPostsQuery } from "../../redux/API/posts/postsApi";
+import Axios from "../../utils/Axios";
 
 const Freeboard = () => {
   const { data: posts = [] } = useFetchAllPostsQuery({
@@ -46,7 +47,12 @@ const Freeboard = () => {
 
   const incViewCnt = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/post/update-viewcnt/${id}`);
+      // await axios.put(`http://localhost:5000/api/post/update-viewcnt/${id}`);
+
+      const response = await Axios({
+        url: `api/post/update-viewcnt/${id}`,
+        method: "put",
+      });
     } catch (error) {
       console.log(error);
     }

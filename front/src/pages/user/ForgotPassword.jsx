@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Axios from "../../utils/Axios";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -32,10 +33,15 @@ const ForgotPassword = () => {
 
   const onSubmit = async () => {
     try {
-      const response = await axios.put(
-        "http://localhost:5000/api/user/forgotpassword",
-        data
-      );
+      // const response = await axios.put(
+      //   "http://localhost:5000/api/user/forgotpassword",
+      //   data
+      // );
+      const response = await Axios({
+        url: "/api/user/forgotpassword",
+        method: "put",
+        data: data,
+      });
 
       if (response.status !== 200) {
         alert(response.data.message);

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Axios from "../../utils/Axios";
 
 const Userregist = () => {
   const [data, setData] = useState({
@@ -42,10 +43,17 @@ const Userregist = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/user/userregist",
-        data
-      );
+      // const response = await axios.post(
+      //   "http://localhost:5000/api/user/userregist",
+      //   data
+      // );
+
+      const response = await Axios({
+        url: "/api/user/userregist",
+        method: "post",
+        data: data,
+      });
+
       alert(response.data.message);
 
       if (response.status !== 200) {

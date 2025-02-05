@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Axios from "../../utils/Axios";
 
 const OtpVerification = () => {
   const navigate = useNavigate();
@@ -23,13 +24,22 @@ const OtpVerification = () => {
     console.log(location);
 
     try {
-      const response = await axios.put(
-        "http://localhost:5000/api/user/verifyotp",
-        {
+      // const response = await axios.put(
+      //   "http://localhost:5000/api/user/verifyotp",
+      //   {
+      //     otp: data.join(""),
+      //     email: location?.state?.email,
+      //   }
+      // );
+
+      const response = await Axios({
+        url: "/api/user/verifyotp",
+        method: "put",
+        data: {
           otp: data.join(""),
           email: location?.state?.email,
-        }
-      );
+        },
+      });
 
       if (response.status !== 200) {
         alert(response.data.message);

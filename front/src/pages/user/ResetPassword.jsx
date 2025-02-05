@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import axios from "axios";
+import Axios from "../../utils/Axios";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -60,10 +61,15 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await axios.put(
-        "http://localhost:5000/api/user/resetpassword",
-        data
-      );
+      // const response = await axios.put(
+      //   "http://localhost:5000/api/user/resetpassword",
+      //   data
+      // );
+      const response = await Axios({
+        url: "/api/user/resetpassword",
+        method: "put",
+        data: data,
+      });
 
       if (response.status !== 200) {
         alert(response.data.message);

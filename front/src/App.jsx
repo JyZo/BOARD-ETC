@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen max-w-screen-2xl mx-auto px-2 pt-24 font-sans w-4/5">
+      <main className="min-h-screen max-w-screen-2xl mx-auto px-2 pt-28 font-sans w-4/5">
         <Outlet />
       </main>
       <Footer />
