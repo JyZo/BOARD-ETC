@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +10,10 @@ const MyPage = () => {
   const myprofile = useSelector((state) => state.user);
   console.log("profile", myprofile);
 
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+  const [userData, setUserData] = useState({
+    name: myprofile.name,
+    email: myprofile.email,
+    mobile: myprofile.mobile,
   });
 
   const {
@@ -28,12 +27,21 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const [showPW, setShowPW] = useState(false);
+  const [showNewPW, setNewConfirmPW] = useState(false);
   const [showConfirmPW, setShowConfirmPW] = useState(false);
+
+  useEffect(() => {
+    setUserData({
+      name: myprofile.name,
+      email: myprofile.email,
+      mobile: myprofile.mobile,
+    });
+  }, [myprofile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setData((preve) => {
+    setUserData((preve) => {
       return {
         ...preve,
         [name]: value,
@@ -88,6 +96,7 @@ const MyPage = () => {
               name="name"
               type="name"
               autoComplete="name"
+              value={myprofile.name}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
               {...register("name", { required: true })}
@@ -113,6 +122,7 @@ const MyPage = () => {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
               {...register("email", { required: true })}
               onChange={handleChange}
+              disabled
             />
           </div>
         </div>
@@ -152,7 +162,36 @@ const MyPage = () => {
               htmlFor="confirmPassword"
               className="block text-sm/6 font-medium text-gray-900"
             >
-              Password confirm
+              New Password
+            </label>
+          </div>
+          <div className="mt-2 relative">
+            <input
+              id="newPassword"
+              name="newPassword"
+              type={showNewPW ? "text" : "password"}
+              autoComplete="current-newPassword"
+              required
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
+              {...register("newPassword", { required: true })}
+              onChange={handleChange}
+            />
+            <div
+              onClick={() => setNewConfirmPW((preve) => !preve)}
+              className="w-6 h-6 absolute right-1 top-2.5 text-gray-900"
+            >
+              {showNewPW ? <AiFillEye /> : <AiFillEyeInvisible />}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm/6 font-medium text-gray-900"
+            >
+              New Password confirm
             </label>
           </div>
           <div className="mt-2 relative">
@@ -192,6 +231,7 @@ const MyPage = () => {
               placeholder="010-1234-1234"
               pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
               autoComplete="current-phone"
+              value={myprofile.mobile}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
               {...register("phone", { required: true })}
