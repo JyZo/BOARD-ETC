@@ -143,19 +143,26 @@ const logoutUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const userId = req.userId;
+    console.log(userId);
     const { name, email, mobile, password } = req.body;
+    console.log(name);
+    console.log(email);
+    console.log(password);
+    console.log(mobile);
 
     if (password) {
       const salt = await bcryptjs.genSalt(10);
       const hashPassword = await bcryptjs.hash(password, salt);
     }
 
-    const updateUser = await User.findByIdAndUpdate(userId, {
-      ...(name && { name: name }),
-      ...(email && { email: email }),
-      ...(mobile && { mobile: mobile }),
-      ...(password && { password: hashPassword }),
-    });
+    // const updateUser = await User.findByIdAndUpdate(userId, {
+    //   ...(name && { name: name }),
+    //   ...(email && { email: email }),
+    //   ...(mobile && { mobile: mobile }),
+    //   ...(password && { password: hashPassword }),
+    // });
+
+    console.log("imsi");
 
     return res.json({
       message: "update successfully",

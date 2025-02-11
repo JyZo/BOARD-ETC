@@ -26,7 +26,7 @@ router.post("/login", loginUser);
 router.get("/logout", auth, logoutUser);
 
 //사용자 정보 업데이트
-router.put("/userupdate", auth, updateUser);
+router.put("/userupdate", updateUser);
 
 //비밀번호 찾기
 router.put("/forgotpassword", forgotPassword);

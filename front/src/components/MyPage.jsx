@@ -13,16 +13,34 @@ const MyPage = () => {
   const [userData, setUserData] = useState({
     name: myprofile.name,
     email: myprofile.email,
+    password: myprofile.password,
+    newpassword: myprofile.newpassword,
+    newpasswordconfirm: myprofile.newpasswordconfirm,
     mobile: myprofile.mobile,
   });
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    reset,
+    formState: { errors, isValid },
     setError,
-  } = useForm();
+    setValue,
+    reset,
+  } = useForm(
+    {
+      defaultValues: {
+        name: "",
+        email: "",
+        password: "",
+        newpassword: "",
+        newpasswordconfirm: "",
+        mobile: "",
+      },
+    },
+    {
+      mode: "onChange",
+    }
+  );
 
   const navigate = useNavigate();
 
@@ -34,27 +52,41 @@ const MyPage = () => {
     setUserData({
       name: myprofile.name,
       email: myprofile.email,
+      password: myprofile.password,
+      newpassword: myprofile.newpassword,
+      newpasswordconfirm: myprofile.newpasswordconfirm,
       mobile: myprofile.mobile,
     });
+    console.log("userData", userData);
   }, [myprofile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+    console.log("change");
+    console.log(myprofile);
     setUserData((preve) => {
       return {
         ...preve,
         [name]: value,
       };
     });
+    console.log("change user data", userData);
   };
 
   const onSubmit = async () => {
+    console.log("여긴오니?");
+    if (userData.newpassword !== userData.newpasswordconfirm) {
+      alert("new password and new confirm password must be same");
+      return;
+    }
+
+    console.log("여긴오니?2");
+
     try {
       const response = await Axios({
-        url: "/api/user/mypage",
-        method: "post",
-        data: data,
+        url: "/api/user/userupdate",
+        method: "put",
+        data: userData,
       });
 
       alert(response.data.message);
@@ -62,11 +94,13 @@ const MyPage = () => {
       if (response.status !== 200) {
         alert(response.data.message);
       } else {
-        setData({
+        setUserData({
           name: "",
           email: "",
           password: "",
-          confirmPassword: "",
+          newpassword: "",
+          newpasswordconfirm: "",
+          mobile: "",
         });
         navigate("/login");
       }
@@ -75,12 +109,14 @@ const MyPage = () => {
     }
   };
 
+  console.log(errors.message);
+
   return (
     <div className="mt-10 xl:mx-auto xl:w-full xl:max-w-sm">
       <form
         className="space-y-6"
         action="#"
-        method="POST"
+        method="PUT"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
@@ -94,12 +130,21 @@ const MyPage = () => {
             <input
               id="name"
               name="name"
-              type="name"
+              type="text"
               autoComplete="name"
-              value={myprofile.name}
-              required
+              // required
+              value={userData.name}
+              // maxLength={20}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
-              {...register("name", { required: true })}
+              {...register("name", {
+                required: true,
+                // pattern: /[0-9]{4}/,
+                // minLength: {
+                //   value: 8,
+                //   message: "비밀번호는 8자 이상이여야 합니다,",
+                // },
+                onChange: (e) => {},
+              })}
               onChange={handleChange}
             />
           </div>
@@ -117,8 +162,8 @@ const MyPage = () => {
               name="email"
               type="email"
               autoComplete="email"
-              value={myprofile.email}
-              required
+              value={userData.email}
+              // required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
               {...register("email", { required: true })}
               onChange={handleChange}
@@ -144,7 +189,7 @@ const MyPage = () => {
               autoComplete="current-password"
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
-              {...register("password", { required: true })}
+              {...register("password", { required: true, onChange: (e) => {} })}
               onChange={handleChange}
             />
             <div
@@ -159,7 +204,7 @@ const MyPage = () => {
         <div>
           <div className="flex items-center justify-between">
             <label
-              htmlFor="confirmPassword"
+              htmlFor="newpassword"
               className="block text-sm/6 font-medium text-gray-900"
             >
               New Password
@@ -167,13 +212,16 @@ const MyPage = () => {
           </div>
           <div className="mt-2 relative">
             <input
-              id="newPassword"
-              name="newPassword"
+              id="newpassword"
+              name="newpassword"
               type={showNewPW ? "text" : "password"}
-              autoComplete="current-newPassword"
+              autoComplete="current-newpassword"
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
-              {...register("newPassword", { required: true })}
+              {...register("newpassword", {
+                required: true,
+                onChange: (e) => {},
+              })}
               onChange={handleChange}
             />
             <div
@@ -188,7 +236,7 @@ const MyPage = () => {
         <div>
           <div className="flex items-center justify-between">
             <label
-              htmlFor="confirmPassword"
+              htmlFor="newpasswordconfirm"
               className="block text-sm/6 font-medium text-gray-900"
             >
               New Password confirm
@@ -196,13 +244,16 @@ const MyPage = () => {
           </div>
           <div className="mt-2 relative">
             <input
-              id="confirmPassword"
-              name="confirmPassword"
+              id="newpasswordconfirm"
+              name="newpasswordconfirm"
               type={showConfirmPW ? "text" : "password"}
-              autoComplete="current-confirmPassword"
+              autoComplete="current-newpasswordconfirm"
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
-              {...register("confirmPassword", { required: true })}
+              {...register("newpasswordconfirm", {
+                required: true,
+                onChange: (e) => {},
+              })}
               onChange={handleChange}
             />
             <div
@@ -225,16 +276,16 @@ const MyPage = () => {
           </div>
           <div className="mt-2">
             <input
-              id="phone"
-              name="phone"
+              id="mobile"
+              name="mobile"
               type="tel"
               placeholder="010-1234-1234"
-              pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
-              autoComplete="current-phone"
-              value={myprofile.mobile}
+              // pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+              autoComplete="current-mobile"
               required
+              value={userData.mobile}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
-              {...register("phone", { required: true })}
+              {...register("mobile", { required: true, onChange: (e) => {} })}
               onChange={handleChange}
             />
           </div>
