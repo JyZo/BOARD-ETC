@@ -144,25 +144,38 @@ const updateUser = async (req, res) => {
   try {
     const userId = req.userId;
     console.log(userId);
-    const { name, email, mobile, password } = req.body;
+    const { name, email, mobile, password, newpassword } = req.body;
     console.log(name);
     console.log(email);
     console.log(password);
     console.log(mobile);
+    console.log(newpassword);
 
-    if (password) {
-      const salt = await bcryptjs.genSalt(10);
-      const hashPassword = await bcryptjs.hash(password, salt);
+    const user = await User.findOne({ email });
+    console.log("user", user);
+    if (!user) {
+      return res.status(400).json({
+        message: "Email not available",
+      });
     }
 
-    // const updateUser = await User.findByIdAndUpdate(userId, {
-    //   ...(name && { name: name }),
-    //   ...(email && { email: email }),
-    //   ...(mobile && { mobile: mobile }),
-    //   ...(password && { password: hashPassword }),
-    // });
+    const checkPassword = await bcryptjs.compare(password, user.password);
+    console.log("check", checkPassword);
+    if (!checkPassword) {
+      return res.status(400).json({
+        message: "Check your password",
+      });
+    }
 
-    console.log("imsi");
+    const salt = await bcryptjs.genSalt(10);
+    const newhashPassword = await bcryptjs.hash(newpassword, salt);
+
+    const updateUser = await User.findByIdAndUpdate(user._id, {
+      ...(name && { name: name }),
+      // ...(email && { email: email }),
+      ...(mobile && { mobile: mobile }),
+      ...(password && { password: newhashPassword }),
+    });
 
     return res.json({
       message: "update successfully",
@@ -171,7 +184,6 @@ const updateUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: error.message || error,
-      user: user,
     });
   }
 };
