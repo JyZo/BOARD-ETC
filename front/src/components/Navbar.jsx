@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/API/user/userSlice";
 import Axios from "../utils/Axios";
+import useLogOut from "../utils/useLogOut";
 
 const navigation = [{ name: "MyPage", href: "/mypage" }];
 
@@ -15,38 +16,18 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state?.user);
-
-  // const imsiuser = true;
+  const { logoutUser } = useLogOut();
   console.log("user data", user);
 
   const handleLogOut = async () => {
-    try {
-      const response = await Axios({
-        url: "/api/user/logout",
-        method: "get",
-      });
-
-      alert(response.data.message);
-
-      if (response.status !== 200) {
-        alert(response.data.message);
-      } else {
-        console.log(response);
-
-        dispatch(logout());
-        localStorage.clear();
-
-        navigate("/");
-      }
-    } catch (error) {
-      alert(error.response.data.message);
-    }
+    logoutUser();
+    dispatch(logout());
+    alert("Logout success");
   };
 
   return (
     <header className="px-4 py-6 top-0 left-2/4 fixed -translate-x-1/2 w-full bg-blue-500">
       <nav className="mx-auto flex justify-between items-center leading-[0px] w-4/5 text-white">
-        {/* left side */}
         <div className="flex items-center md:gap-8 gap-2">
           <Link to="/">
             <FaHome className="size-12" />
@@ -62,8 +43,6 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="relative">
-          {/* <div> */}
-          {/* {imsiuser ? ( */}
           {user?._id ? (
             <>
               <button
