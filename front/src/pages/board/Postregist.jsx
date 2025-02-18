@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useAddPostMutation } from "../../redux/API/posts/postsApi";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const categories = [
   { value: "", label: "선택해주세요" },
@@ -20,11 +21,12 @@ const Postregist = () => {
   } = useForm();
   const [addPost, { isLoading, isError }] = useAddPostMutation();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const onSubmit = async (data) => {
     const newPost = {
       ...data,
-      createuser: "haha",
+      createuser: user._id,
     };
     try {
       await addPost(newPost).unwrap();
