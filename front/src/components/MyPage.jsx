@@ -9,15 +9,16 @@ import { logout } from "../redux/API/user/userSlice";
 import useLogOut from "../utils/useLogOut";
 
 const MyPage = () => {
-  const myprofile = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const [userData, setUserData] = useState({
-    name: myprofile.name,
-    email: myprofile.email,
-    password: myprofile.password,
-    newpassword: myprofile.newpassword,
-    newpasswordconfirm: myprofile.newpasswordconfirm,
-    mobile: myprofile.mobile,
+    name: user.name,
+    email: user.email,
+    password: user.password,
+    newpassword: user.newpassword,
+    newpasswordconfirm: user.newpasswordconfirm,
+    mobile: user.mobile,
+    role: user.role,
   });
 
   const dispatch = useDispatch();
@@ -33,12 +34,13 @@ const MyPage = () => {
   } = useForm(
     {
       defaultValues: {
-        name: myprofile.name,
-        email: myprofile.email,
+        name: user.name,
+        email: user.email,
         password: "",
         newpassword: "",
         newpasswordconfirm: "",
         mobile: "",
+        role: "",
       },
     },
     {
@@ -54,14 +56,15 @@ const MyPage = () => {
 
   useEffect(() => {
     setUserData({
-      name: myprofile.name,
-      email: myprofile.email,
-      password: myprofile.password,
-      newpassword: myprofile.newpassword,
-      newpasswordconfirm: myprofile.newpasswordconfirm,
-      mobile: myprofile.mobile,
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      newpassword: user.newpassword,
+      newpasswordconfirm: user.newpasswordconfirm,
+      mobile: user.mobile,
+      role: user.role,
     });
-  }, [myprofile]);
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

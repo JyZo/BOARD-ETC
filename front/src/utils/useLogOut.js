@@ -12,12 +12,9 @@ const useLogOut = () => {
         method: "get",
       });
 
-      console.log(response.data.message);
-
       if (response.status !== 200) {
         alert(response.data.message);
       } else {
-        console.log(response);
         localStorage.clear();
 
         navigate("/");

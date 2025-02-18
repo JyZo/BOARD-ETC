@@ -14,6 +14,7 @@ import OtpVerification from "../pages/user/OtpVerification";
 import ResetPassword from "../pages/user/ResetPassword";
 import UserDetail from "../components/MyPage";
 import MyPage from "../components/MyPage";
+import PrivateRoute from "../components/Privateroute";
 
 //리액트 라우터 세팅
 const router = createBrowserRouter([
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/postregist",
-        element: <Postregist />,
+        element: (
+          <PrivateRoute>
+            <Postregist />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/postdetail/:id",

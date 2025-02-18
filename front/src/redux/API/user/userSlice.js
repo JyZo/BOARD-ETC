@@ -5,6 +5,7 @@ const initialValue = {
   name: "",
   email: "",
   mobile: "",
+  role: "",
 };
 
 const userSlice = createSlice({
@@ -16,12 +17,14 @@ const userSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.mobile = action.payload.mobile;
+      state.role = action.payload.role;
     },
     logout: (state, action) => {
       state._id = "";
       state.name = "";
       state.email = "";
       state.mobile = "";
+      state.role = "";
     },
   },
 });

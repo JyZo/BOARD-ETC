@@ -81,7 +81,8 @@ const Login = () => {
           email: "",
           password: "",
         });
-        navigate("/");
+        // navigate("/");
+        navigate(-1);
       }
     } catch (error) {
       alert(error.response.data.message);
