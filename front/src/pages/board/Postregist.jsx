@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useAddPostMutation } from "../../redux/API/posts/postsApi";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Wysiwyg from "../../components/Wysiwyg";
 
 const categories = [
   { value: "", label: "선택해주세요" },
@@ -42,6 +43,7 @@ const Postregist = () => {
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 font-size mt-6 mb-10">
             자유게시판 글 작성
+            <Wysiwyg />
           </h2>
 
           <div className="col-span-full">
