@@ -5,6 +5,7 @@ import ReactQuill, { Quill } from "react-quill-new";
 // import "react-quill-new/dist/quill.snow.css";
 import WysiwygToolbar from "./WysiwygToolbar";
 import { ImageResize } from "quill-image-resize-module-ts"; //1.import
+import { useForm } from "react-hook-form";
 
 if (typeof window !== "undefined" && window.Quill) {
   window.Quill = Quill;
@@ -12,7 +13,18 @@ if (typeof window !== "undefined" && window.Quill) {
 
 Quill.register("modules/ImageResize", ImageResize); //3.Quill 모듈을 등록
 
-const Wysiwyg = () => {
+const Wysiwyg = ({ htmlContent, setContentHandler }) => {
+  console.log(htmlContent);
+  const { handleSubmit, register, setValue, trigger } = useForm({
+    mode: "onChange",
+  });
+  const handleChange = (val) => {
+    console.log(val);
+    // const { name, value } = e.target;
+    // console.log("plzzzz");
+    setContentHandler(val);
+  };
+
   const modules = useMemo(() => {
     return {
       toolbar: {
@@ -34,6 +46,8 @@ const Wysiwyg = () => {
         placeholder="글을 작성해 주세요"
         modules={modules}
         style={{ height: "600px", width: "100%" }}
+        onChange={handleChange}
+        value={htmlContent}
       />
     </div>
   );

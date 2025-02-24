@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAddPostMutation } from "../../redux/API/posts/postsApi";
 import { useNavigate } from "react-router-dom";
@@ -24,25 +24,19 @@ const Postregist = () => {
   const [addPost, { isLoading, isError }] = useAddPostMutation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-
-  useEffect(() => {
-    register("content", { required: true });
-  }, [register]);
-
-  const onEditorStateChange = (contentdetail) => {
-    console.log("edddddiit");
-    setValue("content", contentdetail);
-  };
+  const [content, setContent] = useState();
 
   const onSubmit = async (data) => {
     console.log(data);
     const newPost = {
       ...data,
       createuser: user._id,
+      content: content,
     };
     try {
       await addPost(newPost).unwrap();
       alert("post regiest success");
+      setContent("");
       navigate("/freeboard", { replace: true });
     } catch (error) {
       console.log(error);
@@ -116,7 +110,7 @@ const Postregist = () => {
                   {...register("content", { required: true })}
                 />
               </div> */}
-              <Wysiwyg onChange={onEditorStateChange} />
+              <Wysiwyg htmlContent={content} setContentHandler={setContent} />
             </div>
           </div>
         </div>
