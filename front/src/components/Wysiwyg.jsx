@@ -1,52 +1,41 @@
 import React, { useMemo, useRef, useState } from "react";
-import ReactQuill, { Quill } from "react-quill";
+// import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import ReactQuill, { Quill } from "react-quill-new";
+// import "react-quill-new/dist/quill.snow.css";
+import WysiwygToolbar from "./WysiwygToolbar";
+import { ImageResize } from "quill-image-resize-module-ts"; //1.import
+
+if (typeof window !== "undefined" && window.Quill) {
+  window.Quill = Quill;
+} //2. Quill을 window 전역 객체에 할당하여 전역으로 사용
+
+Quill.register("modules/ImageResize", ImageResize); //3.Quill 모듈을 등록
 
 const Wysiwyg = () => {
-  const [values, setValues] = useState();
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "align",
-    "color",
-    "background",
-  ];
-
   const modules = useMemo(() => {
     return {
       toolbar: {
-        container: [
-          [{ size: ["small", false, "large", "huge"] }],
-          [{ align: [] }],
-          ["bold", "italic", "underline", "strike"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          [
-            {
-              color: [],
-            },
-            { background: [] },
-          ],
-        ],
+        container: "#toolBar",
+      },
+      ImageResize: {
+        modules: ["Resize", "DisplaySize"],
       },
     };
   }, []);
 
   return (
-    <ReactQuill
-      theme="snow"
-      modules={modules}
-      formats={formats}
-      onChange={setValues}
-    />
+    <div>
+      <div id="toolBar">
+        <WysiwygToolbar />
+      </div>
+      <ReactQuill
+        theme="snow"
+        placeholder="글을 작성해 주세요"
+        modules={modules}
+        style={{ height: "600px", width: "100%" }}
+      />
+    </div>
   );
 };
 

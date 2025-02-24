@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAddPostMutation } from "../../redux/API/posts/postsApi";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +19,23 @@ const Postregist = () => {
     formState: { errors },
     reset,
     setError,
+    setValue,
   } = useForm();
   const [addPost, { isLoading, isError }] = useAddPostMutation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
+  useEffect(() => {
+    register("content", { required: true });
+  }, [register]);
+
+  const onEditorStateChange = (contentdetail) => {
+    console.log("edddddiit");
+    setValue("content", contentdetail);
+  };
+
   const onSubmit = async (data) => {
+    console.log(data);
     const newPost = {
       ...data,
       createuser: user._id,
@@ -43,7 +54,6 @@ const Postregist = () => {
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 font-size mt-6 mb-10">
             자유게시판 글 작성
-            <Wysiwyg />
           </h2>
 
           <div className="col-span-full">
@@ -96,7 +106,7 @@ const Postregist = () => {
               >
                 내용
               </label>
-              <div className="mt-2">
+              {/* <div className="mt-2">
                 <textarea
                   id="about"
                   name="about"
@@ -105,7 +115,8 @@ const Postregist = () => {
                   defaultValue={""}
                   {...register("content", { required: true })}
                 />
-              </div>
+              </div> */}
+              <Wysiwyg onChange={onEditorStateChange} />
             </div>
           </div>
         </div>

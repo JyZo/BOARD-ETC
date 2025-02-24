@@ -5,6 +5,8 @@ const registPost = async (req, res) => {
   try {
     const newPost = await Post({ ...req.body });
 
+    console.log(newPost);
+
     await newPost.save();
     return res.status(200).send({ message: "Post regist!", post: newPost });
   } catch (error) {
