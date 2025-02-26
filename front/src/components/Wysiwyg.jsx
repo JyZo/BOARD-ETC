@@ -15,14 +15,12 @@ Quill.register("modules/ImageResize", ImageResize); //3.Quill 모듈을 등록
 
 const Wysiwyg = ({ htmlContent, setContentHandler }) => {
   console.log(htmlContent);
-  const { handleSubmit, register, setValue, trigger } = useForm({
-    mode: "onChange",
-  });
-  const handleChange = (val) => {
-    console.log(val);
-    // const { name, value } = e.target;
-    // console.log("plzzzz");
-    setContentHandler(val);
+  // const { handleSubmit, register, setValue, trigger } = useForm({
+  //   mode: "onChange",
+  // });
+  const handleChange = (value) => {
+    console.log(value);
+    setContentHandler(value);
   };
 
   const modules = useMemo(() => {

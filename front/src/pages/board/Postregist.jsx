@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAddPostMutation } from "../../redux/API/posts/postsApi";
 import { useNavigate } from "react-router-dom";
@@ -24,10 +24,15 @@ const Postregist = () => {
   const [addPost, { isLoading, isError }] = useAddPostMutation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const [content, setContent] = useState();
+  const [content, setContent] = useState(" ");
+
+  // useEffect(() => {
+  //   setValue("content", content);
+  // }, [content]);
 
   const onSubmit = async (data) => {
     console.log(data);
+    // console.log(getValues("content"));
     const newPost = {
       ...data,
       createuser: user._id,
@@ -110,7 +115,12 @@ const Postregist = () => {
                   {...register("content", { required: true })}
                 />
               </div> */}
-              <Wysiwyg htmlContent={content} setContentHandler={setContent} />
+              <Wysiwyg
+                htmlContent={content}
+                setContentHandler={setContent}
+                // {...register("content", { required: true })}
+              />
+              {/* {errors.title && <p>{errors.title.message}</p>} */}
             </div>
           </div>
         </div>

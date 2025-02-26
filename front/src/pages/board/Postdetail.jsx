@@ -6,6 +6,7 @@ import {
   useFetchPostByIdQuery,
 } from "../../redux/API/posts/postsApi";
 import { useSelector } from "react-redux";
+import dompurify from "dompurify";
 
 const categories = ["자유", "질문", "유머"];
 
@@ -16,6 +17,10 @@ const Postdetail = () => {
   const [deletePost] = useDeletePostMutation();
   const user = useSelector((state) => state.user);
   // const [isOwner, setIsOwner] = useState(false);
+
+  // 스크립트를 활용하여 javascript와 HTML로 악성 코드를 웹 브라우저에 심어,
+  // 사용자 접속시 그 악성코드가 실행되는 것을 XSS, 보안을 위해 sanitize 추가
+  const sanitizer = dompurify.sanitize;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -82,6 +87,10 @@ const Postdetail = () => {
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="col-span-full">
             <div className="min-h-[300px] text-left mt-5">{post.content}</div>
+            <div
+              className="min-h-[300px] text-left mt-5"
+              dangerouslySetInnerHTML={{ __html: sanitizer(`${post.content}`) }}
+            ></div>
           </div>
         </div>
       </div>
