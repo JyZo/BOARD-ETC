@@ -18,6 +18,31 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
   // const { handleSubmit, register, setValue, trigger } = useForm({
   //   mode: "onChange",
   // });
+
+  const quillRef = useRef(null);
+
+  const imageHandler = async () => {
+    console.log("click imagehandler");
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+    input.addEventListener("change", async () => {
+      const file = input.files?.[0];
+      console.log("file", file);
+      try {
+        const name = Date.now();
+
+        const editor = quillRef.current.getEditor();
+        const range = editor.getSelection();
+
+        editor.insertEmbed(range.index, "image", "../../public/Codeac.svg");
+        editor.setSelection(range.index + 1);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
   const handleChange = (value) => {
     console.log(value);
     setContentHandler(value);
@@ -27,6 +52,9 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
     return {
       toolbar: {
         container: "#toolBar",
+        handlers: {
+          image: imageHandler,
+        },
       },
       ImageResize: {
         modules: ["Resize", "DisplaySize"],
@@ -43,6 +71,7 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
         theme="snow"
         placeholder="글을 작성해 주세요"
         modules={modules}
+        ref={quillRef}
         style={{ height: "600px", width: "100%" }}
         onChange={handleChange}
         value={htmlContent}
