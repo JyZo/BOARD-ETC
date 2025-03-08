@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 // import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { Quill } from "react-quill-new";
@@ -14,12 +14,29 @@ if (typeof window !== "undefined" && window.Quill) {
 Quill.register("modules/ImageResize", ImageResize); //3.Quill 모듈을 등록
 
 const Wysiwyg = ({ htmlContent, setContentHandler }) => {
-  console.log(htmlContent);
+  // console.log(htmlContent.content);
   // const { handleSubmit, register, setValue, trigger } = useForm({
   //   mode: "onChange",
   // });
 
-  const quillRef = useRef(null);
+  const quillRef = useRef();
+
+  useEffect(() => {
+    if (htmlContent) {
+      console.log("있지롱");
+      // setContent(htmlContent.content);
+      setContentHandler(htmlContent.content);
+      // try {
+      //   const editor = quillRef.current.getEditor();
+      //   const range = editor.getSelection();
+
+      //   editor.insertEmbed(range.index, htmlContent);
+      //   editor.setSelection(range.index + 1);
+      // } catch (error) {
+      //   console.log(error);
+      // }
+    }
+  }, []);
 
   const imageHandler = async () => {
     console.log("click imagehandler");
@@ -28,24 +45,27 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
     input.setAttribute("accept", "image/*");
     input.click();
     input.addEventListener("change", async () => {
-      const file = input.files?.[0];
-      console.log("file", file);
-      try {
-        const name = Date.now();
+      if (input !== null && input.files !== null) {
+        const file = input.files?.[0];
+        console.log("file", file);
+        try {
+          const name = Date.now();
 
-        const editor = quillRef.current.getEditor();
-        const range = editor.getSelection();
+          const editor = quillRef.current.getEditor();
+          const range = editor.getSelection();
 
-        editor.insertEmbed(range.index, "image", "../../public/Codeac.svg");
-        editor.setSelection(range.index + 1);
-      } catch (error) {
-        console.log(error);
+          editor.insertEmbed(range.index, "image", "../../public/Codeac.svg");
+          editor.setSelection(range.index + 1);
+        } catch (error) {
+          console.log(error);
+        }
       }
     });
   };
   const handleChange = (value) => {
     console.log(value);
     setContentHandler(value);
+    // setContent(value);
   };
 
   const modules = useMemo(() => {

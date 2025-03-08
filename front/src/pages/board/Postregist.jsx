@@ -24,7 +24,7 @@ const Postregist = () => {
   const [addPost, { isLoading, isError }] = useAddPostMutation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const [content, setContent] = useState(" ");
+  const [content, setContent] = useState();
 
   // useEffect(() => {
   //   setValue("content", content);

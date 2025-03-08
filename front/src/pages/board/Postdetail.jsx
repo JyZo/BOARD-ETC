@@ -94,6 +94,8 @@ const Postdetail = () => {
           </div>
         </div>
       </div>
+      <div>{post.createuser}</div>
+      <div>{user._id}</div>
       {post.createuser === user._id ? (
         <div className="mt-6 flex items-center justify-end gap-x-2 mb-60">
           <button
