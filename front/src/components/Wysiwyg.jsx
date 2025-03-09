@@ -64,14 +64,17 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
           const imgUpload = new AWS.S3.ManagedUpload({
             params: {
               ACL: "public-read",
-              Bucket: "VITE_BUCKETNAME",
+              Bucket: VITE_BUCKETNAME,
               Key: `upload/${name}`,
               Body: file,
             },
           });
 
-          const IMG_URL = await imgUpload.promise().then((res) => res.Location);
-
+          // const IMG_URL = await imgUpload.promise().then((res) => res.Location);
+          const IMG_URL = await imgUpload
+            .promise()
+            .then((result) => result.Location)
+            .catch((err) => console.log(err));
           console.log(IMG_URL);
 
           const editor = quillRef.current.getEditor();
