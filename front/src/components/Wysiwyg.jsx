@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 // import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { Quill } from "react-quill-new";
@@ -6,6 +6,7 @@ import ReactQuill, { Quill } from "react-quill-new";
 import WysiwygToolbar from "./WysiwygToolbar";
 import { ImageResize } from "quill-image-resize-module-ts"; //1.import
 import { useForm } from "react-hook-form";
+import AWS from "aws-sdk";
 
 if (typeof window !== "undefined" && window.Quill) {
   window.Quill = Quill;
@@ -14,12 +15,32 @@ if (typeof window !== "undefined" && window.Quill) {
 Quill.register("modules/ImageResize", ImageResize); //3.Quill 모듈을 등록
 
 const Wysiwyg = ({ htmlContent, setContentHandler }) => {
-  console.log(htmlContent);
+  // console.log(htmlContent.content);
   // const { handleSubmit, register, setValue, trigger } = useForm({
   //   mode: "onChange",
   // });
+  const quillRef = useRef();
+  const VITE_AWSREGION = import.meta.env.VITE_AWSREGION;
+  const VITE_BUCKETNAME = import.meta.env.VITE_BUCKETNAME;
+  const VITE_AWSACCESSKEYID = import.meta.env.VITE_AWSACCESSKEYID;
+  const VITE_AWSSECRETACCESSKEY = import.meta.env.VITE_AWSSECRETACCESSKEY;
+  console.log(VITE_AWSREGION);
+  useEffect(() => {
+    if (htmlContent) {
+      console.log("있지롱");
+      // setContent(htmlContent.content);
+      setContentHandler(htmlContent.content);
+      // try {
+      //   const editor = quillRef.current.getEditor();
+      //   const range = editor.getSelection();
 
-  const quillRef = useRef(null);
+      //   editor.insertEmbed(range.index, htmlContent);
+      //   editor.setSelection(range.index + 1);
+      // } catch (error) {
+      //   console.log(error);
+      // }
+    }
+  }, []);
 
   const imageHandler = async () => {
     console.log("click imagehandler");
@@ -28,24 +49,46 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
     input.setAttribute("accept", "image/*");
     input.click();
     input.addEventListener("change", async () => {
-      const file = input.files?.[0];
-      console.log("file", file);
-      try {
-        const name = Date.now();
+      if (input !== null && input.files !== null) {
+        const file = input.files?.[0];
+        console.log("file", file);
+        try {
+          const name = Date.now();
 
-        const editor = quillRef.current.getEditor();
-        const range = editor.getSelection();
+          AWS.config.update({
+            region: VITE_AWSREGION,
+            accessKeyId: VITE_AWSACCESSKEYID,
+            secretAccessKey: VITE_AWSSECRETACCESSKEY,
+          });
 
-        editor.insertEmbed(range.index, "image", "../../public/Codeac.svg");
-        editor.setSelection(range.index + 1);
-      } catch (error) {
-        console.log(error);
+          const imgUpload = new AWS.S3.ManagedUpload({
+            params: {
+              ACL: "public-read",
+              Bucket: "VITE_BUCKETNAME",
+              Key: `upload/${name}`,
+              Body: file,
+            },
+          });
+
+          const IMG_URL = await imgUpload.promise().then((res) => res.Location);
+
+          console.log(IMG_URL);
+
+          const editor = quillRef.current.getEditor();
+          const range = editor.getSelection();
+
+          editor.insertEmbed(range.index, "image", IMG_URL);
+          editor.setSelection(range.index + 1);
+        } catch (error) {
+          console.log(error);
+        }
       }
     });
   };
   const handleChange = (value) => {
     console.log(value);
     setContentHandler(value);
+    // setContent(value);
   };
 
   const modules = useMemo(() => {

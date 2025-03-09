@@ -7,7 +7,6 @@ import {
 } from "../../redux/API/posts/postsApi";
 import axios from "axios";
 import Wysiwyg from "../../components/Wysiwyg";
-import { useSelector } from "react-redux";
 
 const categories = [
   { value: "", label: "선택해주세요" },
@@ -19,7 +18,7 @@ const categories = [
 const Postupdate = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const user = useSelector((state) => state.user);
+
   const { data: post, isLoading, isError, refetch } = useFetchPostByIdQuery(id);
   const [updatePost] = useUpdatePostMutation();
   const [content, setContent] = useState(post);
@@ -46,13 +45,12 @@ const Postupdate = () => {
   }, [post, setValue]);
 
   const onSubmit = async (data) => {
-    console.log(content);
     const updatePostData = {
       id: Number(data.id),
       title: data.title,
       category: data.category,
-      content: content,
-      createuser: user._id,
+      content: data.content,
+      createuser: "haha",
     };
 
     try {

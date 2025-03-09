@@ -52,15 +52,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/postupdate/:id",
-        element: <Postupdate />,
+        element: (
+          <PrivateRoute>
+            <Postupdate />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/news",
         element: <div>news</div>,
       },
       {
-        path: "/snack",
-        element: <div>snack</div>,
+        path: "/gchart",
+        element: <div>gchart</div>,
       },
       {
         path: "/forgotpassword",
