@@ -34,6 +34,20 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
       //   const editor = quillRef.current.getEditor();
       //   const range = editor.getSelection();
 
+<<<<<<< HEAD
+=======
+  const quillRef = useRef();
+
+  useEffect(() => {
+    if (htmlContent) {
+      console.log("있지롱");
+      // setContent(htmlContent.content);
+      setContentHandler(htmlContent.content);
+      // try {
+      //   const editor = quillRef.current.getEditor();
+      //   const range = editor.getSelection();
+
+>>>>>>> ffd344c0c5f9fc893f3b87b4284e1ebda22d1dab
       //   editor.insertEmbed(range.index, htmlContent);
       //   editor.setSelection(range.index + 1);
       // } catch (error) {
@@ -55,6 +69,7 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
         try {
           const name = Date.now();
 
+<<<<<<< HEAD
           AWS.config.update({
             region: VITE_AWSREGION,
             accessKeyId: VITE_AWSACCESSKEYID,
@@ -78,6 +93,12 @@ const Wysiwyg = ({ htmlContent, setContentHandler }) => {
           const range = editor.getSelection();
 
           editor.insertEmbed(range.index, "image", IMG_URL);
+=======
+          const editor = quillRef.current.getEditor();
+          const range = editor.getSelection();
+
+          editor.insertEmbed(range.index, "image", "../../public/Codeac.svg");
+>>>>>>> ffd344c0c5f9fc893f3b87b4284e1ebda22d1dab
           editor.setSelection(range.index + 1);
         } catch (error) {
           console.log(error);
