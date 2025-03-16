@@ -15,6 +15,7 @@ import ResetPassword from "../pages/user/ResetPassword";
 import UserDetail from "../components/MyPage";
 import MyPage from "../components/MyPage";
 import PrivateRoute from "../components/Privateroute";
+import Chartboard from "../pages/chart/chartboard";
 
 //리액트 라우터 세팅
 const router = createBrowserRouter([
@@ -63,8 +64,8 @@ const router = createBrowserRouter([
         element: <div>news</div>,
       },
       {
-        path: "/gchart",
-        element: <div>gchart</div>,
+        path: "/chartboard",
+        element: <Chartboard />,
       },
       {
         path: "/forgotpassword",
