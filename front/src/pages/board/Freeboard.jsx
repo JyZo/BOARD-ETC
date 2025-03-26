@@ -3,9 +3,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useFetchAllPostsQuery } from "../../redux/API/posts/postsApi";
 import Axios from "../../utils/Axios";
+import fetchUserDetail from "../../utils/fetchUserDetail";
 
 const Freeboard = () => {
-  const { data: posts = [] } = useFetchAllPostsQuery({
+  const { data: posts = [], refetch } = useFetchAllPostsQuery({
     pollingInterval: 2000,
     refetchOnMountOrArgChange: true,
     skip: false,
@@ -48,7 +49,6 @@ const Freeboard = () => {
   const incViewCnt = async (id) => {
     try {
       // await axios.put(`http://localhost:5000/api/post/update-viewcnt/${id}`);
-
       const response = await Axios({
         url: `api/post/update-viewcnt/${id}`,
         method: "put",
@@ -61,6 +61,10 @@ const Freeboard = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategory]);
+
+  useEffect(() => {
+    refetch();
+  }, [incViewCnt]);
 
   if (loading) return <div>Loading....</div>;
   return (
