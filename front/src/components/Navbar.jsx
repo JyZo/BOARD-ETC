@@ -36,7 +36,7 @@ const Navbar = () => {
             <div>자유게시판</div>
           </Link>
           <Link to="/chartboard">
-            <div>과자</div>
+            <div>패치별 통계</div>
           </Link>
           <Link to="/news">
             <div>NEWS</div>
