@@ -36,41 +36,41 @@ const data = [
 ];
 
 const Winchart = () => {
-  useEffect(() => {
-    fetchData();
-    onSubmit();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  //   onSubmit();
+  // }, []);
 
-  const onSubmit = async () => {
-    try {
-      const response = await axios.get(
-        `https://www.op.gg/champions/gangplank/trends`,
-        { withCredentials: true }
-      );
+  // const onSubmit = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://www.op.gg/champions/gangplank/trends`,
+  //       { withCredentials: true }
+  //     );
 
-      console.log("response", response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log("response", response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const fetchData = async () => {
-    console.log("fetch");
-    try {
-      const response = await axios.get(
-        "https://www.op.gg/champions/gangplank/trends",
-        { withCredentials: true }
-      );
-      console.log(response.data);
-      console.log(response.status);
-      console.log(response.statusText);
-      console.log(response.headers);
-      console.log(response.config);
-    } catch (error) {
-      // Handle error
-      console.error(error);
-    }
-  };
+  // const fetchData = async () => {
+  //   console.log("fetch");
+  //   try {
+  //     const response = await axios.get(
+  //       "https://www.op.gg/champions/gangplank/trends",
+  //       { withCredentials: true }
+  //     );
+  //     console.log(response.data);
+  //     console.log(response.status);
+  //     console.log(response.statusText);
+  //     console.log(response.headers);
+  //     console.log(response.config);
+  //   } catch (error) {
+  //     // Handle error
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <ResponsiveContainer width="100%" height={400}>

@@ -11,7 +11,11 @@ const Userregist = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    phone: "",
   });
+
+  const { name, email, password, confirmPassword, phone } = data;
+
   const {
     register,
     handleSubmit,
@@ -27,7 +31,6 @@ const Userregist = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setData((preve) => {
       return {
         ...preve,
@@ -35,6 +38,26 @@ const Userregist = () => {
       };
     });
   };
+
+  useEffect(() => {
+    if (phone.length === 11) {
+      setData((preve) => {
+        return {
+          ...preve,
+          phone: phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    } else if (phone.length === 13) {
+      setData((preve) => {
+        return {
+          ...preve,
+          phone: phone
+            .replace(/-/g, "")
+            .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    }
+  }, [phone]);
 
   const onSubmit = async () => {
     if (data.password !== data.confirmPassword) {
@@ -48,6 +71,7 @@ const Userregist = () => {
       //   data
       // );
 
+      console.log(data);
       const response = await Axios({
         url: "/api/user/userregist",
         method: "post",
@@ -64,6 +88,7 @@ const Userregist = () => {
           email: "",
           password: "",
           confirmPassword: "",
+          phone: "",
         });
         navigate("/login");
       }
@@ -92,6 +117,7 @@ const Userregist = () => {
               id="name"
               name="name"
               type="name"
+              value={name || ""}
               autoComplete="name"
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
@@ -112,6 +138,7 @@ const Userregist = () => {
               id="email"
               name="email"
               type="email"
+              value={email || ""}
               autoComplete="email"
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
@@ -134,6 +161,7 @@ const Userregist = () => {
             <input
               id="password"
               name="password"
+              value={password || ""}
               type={showPW ? "text" : "password"}
               autoComplete="current-password"
               required
@@ -163,6 +191,7 @@ const Userregist = () => {
             <input
               id="confirmPassword"
               name="confirmPassword"
+              value={confirmPassword || ""}
               type={showConfirmPW ? "text" : "password"}
               autoComplete="current-confirmPassword"
               required
@@ -192,8 +221,10 @@ const Userregist = () => {
             <input
               id="phone"
               name="phone"
-              type="tel"
-              placeholder="010-1234-1234"
+              value={phone || ""}
+              type="text"
+              placeholder="010-XXXX-XXXX"
+              maxLength={13}
               pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
               autoComplete="current-phone"
               required

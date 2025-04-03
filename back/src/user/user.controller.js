@@ -10,7 +10,7 @@ const generatedOTP = require("../utils/generatedOTP");
 //사용자 등록
 const registUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -33,6 +33,7 @@ const registUser = async (req, res) => {
       name,
       email,
       password: hashPassword,
+      phone,
     };
 
     const newUser = new User(payload);
