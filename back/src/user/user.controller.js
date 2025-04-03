@@ -145,11 +145,11 @@ const updateUser = async (req, res) => {
   try {
     const userId = req.userId;
     console.log(userId);
-    const { name, email, mobile, password, newpassword } = req.body;
+    const { name, email, phone, password, newpassword } = req.body;
     console.log(name);
     console.log(email);
     console.log(password);
-    console.log(mobile);
+    console.log(phone);
     console.log(newpassword);
 
     const user = await User.findOne({ email });
@@ -174,7 +174,7 @@ const updateUser = async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(user._id, {
       ...(name && { name: name }),
       // ...(email && { email: email }),
-      ...(mobile && { mobile: mobile }),
+      ...(phone && { phone: phone }),
       ...(password && { password: newhashPassword }),
     });
 

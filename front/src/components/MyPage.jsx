@@ -10,14 +10,14 @@ import useLogOut from "../utils/useLogOut";
 
 const MyPage = () => {
   const user = useSelector((state) => state.user);
-
+  console.log(user);
   const [userData, setUserData] = useState({
     name: user.name,
     email: user.email,
     password: user.password,
     newpassword: user.newpassword,
     newpasswordconfirm: user.newpasswordconfirm,
-    mobile: user.mobile,
+    phone: user.phone,
     role: user.role,
   });
 
@@ -39,7 +39,7 @@ const MyPage = () => {
         password: "",
         newpassword: "",
         newpasswordconfirm: "",
-        mobile: "",
+        phone: user.phone,
         role: "",
       },
     },
@@ -54,6 +54,8 @@ const MyPage = () => {
   const [showNewPW, setNewConfirmPW] = useState(false);
   const [showConfirmPW, setShowConfirmPW] = useState(false);
 
+  const { phone } = userData;
+
   useEffect(() => {
     setUserData({
       name: user.name,
@@ -61,10 +63,30 @@ const MyPage = () => {
       password: user.password,
       newpassword: user.newpassword,
       newpasswordconfirm: user.newpasswordconfirm,
-      mobile: user.mobile,
+      phone: user.phone,
       role: user.role,
     });
   }, [user]);
+
+  useEffect(() => {
+    if (phone.length === 11) {
+      setUserData((preve) => {
+        return {
+          ...preve,
+          phone: phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    } else if (phone.length === 13) {
+      setUserData((preve) => {
+        return {
+          ...preve,
+          phone: phone
+            .replace(/-/g, "")
+            .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    }
+  }, [phone]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,7 +122,7 @@ const MyPage = () => {
           password: "",
           newpassword: "",
           newpasswordconfirm: "",
-          mobile: "",
+          phone: "",
         });
         logoutUser();
         dispatch(logout());
@@ -269,15 +291,16 @@ const MyPage = () => {
           </div>
           <div className="mt-2">
             <input
-              id="mobile"
-              name="mobile"
-              type="tel"
-              placeholder="010-1234-1234"
-              autoComplete="current-mobile"
+              id="phone"
+              name="phone"
+              type="text"
+              placeholder="010-XXXX-XXXX"
+              autoComplete="current-phone"
+              maxLength={13}
               required
-              value={userData.mobile}
+              value={userData.phone}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6 focus:outline-none pl-2"
-              {...register("mobile", { onChange: (e) => {} })}
+              {...register("phone", { onChange: (e) => {} })}
               onChange={handleChange}
             />
           </div>
