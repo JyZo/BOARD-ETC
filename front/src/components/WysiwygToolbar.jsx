@@ -2,7 +2,6 @@ const WysiwygToolbar = () => {
   return (
     <>
       <div className="ql-formats">
-        {/* <select className="ql-header" defaultValue="normal" /> */}
         <select className="ql-size" defaultValue="medium" />
         <select className="ql-font" defaultValue="sans-serif" />
       </div>

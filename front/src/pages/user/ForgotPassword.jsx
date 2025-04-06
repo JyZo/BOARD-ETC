@@ -33,10 +33,6 @@ const ForgotPassword = () => {
 
   const onSubmit = async () => {
     try {
-      // const response = await axios.put(
-      //   "http://localhost:5000/api/user/forgotpassword",
-      //   data
-      // );
       const response = await Axios({
         url: "/api/user/forgotpassword",
         method: "put",

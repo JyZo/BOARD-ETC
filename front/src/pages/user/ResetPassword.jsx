@@ -25,7 +25,6 @@ const ResetPassword = () => {
   const [showConfirmPW, setShowConfirmPW] = useState(false);
 
   useEffect(() => {
-    console.log(location.state.data.message);
     if (location.state.data.message != "OTP verified!!") {
       navigate("/");
     }
@@ -61,10 +60,6 @@ const ResetPassword = () => {
     }
 
     try {
-      // const response = await axios.put(
-      //   "http://localhost:5000/api/user/resetpassword",
-      //   data
-      // );
       const response = await Axios({
         url: "/api/user/resetpassword",
         method: "put",

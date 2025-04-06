@@ -30,7 +30,11 @@ const Navbar = () => {
       <nav className="mx-auto flex justify-between items-center leading-[0px] w-4/5 text-white">
         <div className="flex items-center md:gap-8 gap-2">
           <Link to="/">
-            <FaHome className="size-12" />
+            <img
+              src="https://imgup-bucket.s3.ap-northeast-2.amazonaws.com/upload/navgp.jpg"
+              alt=""
+              className="rounded-full size-16"
+            />
           </Link>
           <Link to="/freeboard">
             <div>자유게시판</div>
@@ -96,7 +100,6 @@ const Navbar = () => {
               </Link>
             </>
           )}
-          {/* </div> */}
         </div>
       </nav>
     </header>

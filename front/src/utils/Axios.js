@@ -7,13 +7,11 @@ const Axios = axios.create({
 
 Axios.interceptors.request.use(
   async (config) => {
-    console.log("intercepter request", config);
     const accessToken = localStorage.getItem("accesstoken");
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-    console.log("accessToken", accessToken);
 
     return config;
   },
@@ -24,26 +22,20 @@ Axios.interceptors.request.use(
 
 Axios.interceptors.response.use(
   (response) => {
-    console.log("response", response);
     return response;
   },
   async (error) => {
-    console.log("intercepter err");
     let originRequest = error.config;
 
     if (error.response.status === 401 && !originRequest.retry) {
       originRequest.retry = true;
 
       const refreshToken = localStorage.getItem("refreshToken");
-      console.log("refereshtoken", refreshToken);
 
       if (refreshToken) {
-        console.log("refresh2", refreshToken);
         const newAccessToken = await refreshAccessToken(refreshToken);
-        console.log("newAccessToken", newAccessToken);
 
         if (newAccessToken) {
-          console.log("newAccessToken2", newAccessToken);
           originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return Axios(originRequest);
         }
@@ -64,9 +56,7 @@ const refreshAccessToken = async (refreshToken) => {
       },
     });
 
-    console.log("refrehs response", response);
     const accessToken = response.data.data.accessToken;
-    console.log("accesstoken response", response);
     localStorage.setItem("accesstoken", accessToken);
     return accessToken;
   } catch (error) {

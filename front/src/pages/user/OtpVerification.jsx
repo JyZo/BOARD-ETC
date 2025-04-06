@@ -21,17 +21,7 @@ const OtpVerification = () => {
   } = useForm();
 
   const onSubmit = async () => {
-    console.log(location);
-
     try {
-      // const response = await axios.put(
-      //   "http://localhost:5000/api/user/verifyotp",
-      //   {
-      //     otp: data.join(""),
-      //     email: location?.state?.email,
-      //   }
-      // );
-
       const response = await Axios({
         url: "/api/user/verifyotp",
         method: "put",

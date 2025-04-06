@@ -66,12 +66,6 @@ const Userregist = () => {
     }
 
     try {
-      // const response = await axios.post(
-      //   "http://localhost:5000/api/user/userregist",
-      //   data
-      // );
-
-      console.log(data);
       const response = await Axios({
         url: "/api/user/userregist",
         method: "post",
