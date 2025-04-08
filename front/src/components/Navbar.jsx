@@ -91,9 +91,13 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login" className="flex flex-col items-center gap-1">
-                <FaRegUser className="size-12" />
+                <img
+                  src="https://imgup-bucket.s3.ap-northeast-2.amazonaws.com/upload/collector.jpg"
+                  alt=""
+                  className="rounded-full size-14 hover:-translate-y-2 transition duration-500 ease-in-out"
+                />
                 <div></div>
-                <div className="w-[5rem] h-[0.1rem]">
+                <div className="w-[5rem] h-[0.1rem] pt-1">
                   <span className="font-bold">로그인</span>
                   <span></span>
                 </div>
