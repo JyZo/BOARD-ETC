@@ -138,7 +138,7 @@ const Freeboard = () => {
         </tbody>
       </table>
       <div>
-        <nav>
+        <nav className="pt-2 pb-2">
           <ul className="flex items-center h-8 text-sm justify-center">
             <button
               onClick={goToPrevPage}
