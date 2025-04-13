@@ -69,19 +69,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/forgotpassword",
-        element: (
-          <PrivateRoute>
-            <ForgotPassword />
-          </PrivateRoute>
-        ),
+        element: <ForgotPassword />,
       },
       {
         path: "/verifyotp",
-        element: (
-          <PrivateRoute>
-            <OtpVerification />
-          </PrivateRoute>
-        ),
+        element: <OtpVerification />,
       },
       {
         path: "/resetpassword",

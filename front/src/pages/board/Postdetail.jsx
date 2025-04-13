@@ -85,10 +85,10 @@ const Postdetail = () => {
           </div>
         </div>
       </div>
-      <div>{post.createuser}</div>
-      <div>{user._id}</div>
+      {/* <div>{post.createuser}</div>
+      <div>{user._id}</div> */}
       {post.createuser === user._id ? (
-        <div className="mt-6 flex items-center justify-end gap-x-2 mb-60">
+        <div className="pt-6 flex items-center justify-end gap-x-2 pb-4">
           <button
             type="button"
             className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
