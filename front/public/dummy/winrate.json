@@ -1,0 +1,103 @@
+[
+  {
+    "version": "24.1",
+    "승률": 52,
+    "country": "Global"
+  },
+  {
+    "version": "24.2",
+    "승률": 49,
+    "country": "Global"
+  },
+  {
+    "version": "24.3",
+    "승률": 51,
+    "country": "Global"
+  },
+  {
+    "version": "24.4",
+    "승률": 50,
+    "country": "Global"
+  },
+  {
+    "version": "24.5",
+    "승률": 55,
+    "country": "Global"
+  },
+
+  {
+    "version": "24.1",
+    "승률": 50,
+    "country": "Korea"
+  },
+  {
+    "version": "24.2",
+    "승률": 47,
+    "country": "Korea"
+  },
+  {
+    "version": "24.3",
+    "승률": 48,
+    "country": "Korea"
+  },
+  {
+    "version": "24.4",
+    "승률": 50,
+    "country": "Korea"
+  },
+  {
+    "version": "24.5",
+    "승률": 52,
+    "country": "Korea"
+  },
+  {
+    "version": "24.1",
+    "승률": 51,
+    "country": "Europe"
+  },
+  {
+    "version": "24.2",
+    "승률": 48,
+    "country": "Europe"
+  },
+  {
+    "version": "24.3",
+    "승률": 48,
+    "country": "Europe"
+  },
+  {
+    "version": "24.4",
+    "승률": 52,
+    "country": "Europe"
+  },
+  {
+    "version": "24.5",
+    "승률": 53,
+    "country": "Europe"
+  },
+  {
+    "version": "24.1",
+    "승률": 54,
+    "country": "Japan"
+  },
+  {
+    "version": "24.2",
+    "승률": 52,
+    "country": "Japan"
+  },
+  {
+    "version": "24.3",
+    "승률": 51,
+    "country": "Japan"
+  },
+  {
+    "version": "24.4",
+    "승률": 48,
+    "country": "Japan"
+  },
+  {
+    "version": "24.5",
+    "승률": 50,
+    "country": "Japan"
+  }
+]

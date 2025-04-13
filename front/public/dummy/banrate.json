@@ -1,0 +1,103 @@
+[
+  {
+    "version": "24.1",
+    "밴율": 15,
+    "country": "Global"
+  },
+  {
+    "version": "24.2",
+    "밴율": 13,
+    "country": "Global"
+  },
+  {
+    "version": "24.3",
+    "밴율": 10,
+    "country": "Global"
+  },
+  {
+    "version": "24.4",
+    "밴율": 8,
+    "country": "Global"
+  },
+  {
+    "version": "24.5",
+    "밴율": 9,
+    "country": "Global"
+  },
+
+  {
+    "version": "24.1",
+    "밴율": 13,
+    "country": "Korea"
+  },
+  {
+    "version": "24.2",
+    "밴율": 12,
+    "country": "Korea"
+  },
+  {
+    "version": "24.3",
+    "밴율": 13,
+    "country": "Korea"
+  },
+  {
+    "version": "24.4",
+    "밴율": 12,
+    "country": "Korea"
+  },
+  {
+    "version": "24.5",
+    "밴율": 10,
+    "country": "Korea"
+  },
+  {
+    "version": "24.1",
+    "밴율": 12,
+    "country": "Europe"
+  },
+  {
+    "version": "24.2",
+    "밴율": 13,
+    "country": "Europe"
+  },
+  {
+    "version": "24.3",
+    "밴율": 14,
+    "country": "Europe"
+  },
+  {
+    "version": "24.4",
+    "밴율": 14,
+    "country": "Europe"
+  },
+  {
+    "version": "24.5",
+    "밴율": 15,
+    "country": "Europe"
+  },
+  {
+    "version": "24.1",
+    "밴율": 19,
+    "country": "Japan"
+  },
+  {
+    "version": "24.2",
+    "밴율": 18,
+    "country": "Japan"
+  },
+  {
+    "version": "24.3",
+    "밴율": 17,
+    "country": "Japan"
+  },
+  {
+    "version": "24.4",
+    "밴율": 19,
+    "country": "Japan"
+  },
+  {
+    "version": "24.5",
+    "밴율": 15,
+    "country": "Japan"
+  }
+]

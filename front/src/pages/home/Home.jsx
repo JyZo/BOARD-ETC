@@ -59,7 +59,7 @@ const Home = () => {
         <div className="flex">
           <div className="flex w-28 items-center pt-2">
             <a
-              href="https://www.youtube.com/channel/UCv7S6FG3Ne2drrlUHUgqo0w"
+              href="https://www.youtube.com/results?search_query=%ED%97%88%ED%97%88%EB%A7%A8"
               target="_blank"
               className="flex size-5 items-center"
             >
@@ -69,7 +69,7 @@ const Home = () => {
           </div>
           <div className="flex w-20 items-center pt-2">
             <a
-              href="https://ch.sooplive.co.kr/chlwlals88"
+              href="https://chzzk.naver.com/2d160d10cfddb69671a511eb0267bb9c"
               target="_blank"
               className="flex size-5 items-center"
             >

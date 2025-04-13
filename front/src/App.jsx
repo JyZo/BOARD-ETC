@@ -12,7 +12,9 @@ function App() {
 
   const fetchUser = async () => {
     const userData = await fetchUserDetail();
-    dispatch(setUserDetails(userData.data));
+    if (userData !== undefined) {
+      dispatch(setUserDetails(userData.data));
+    }
   };
 
   useEffect(() => {

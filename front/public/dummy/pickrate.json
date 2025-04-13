@@ -1,0 +1,103 @@
+[
+  {
+    "version": "24.1",
+    "픽률": 3,
+    "country": "Global"
+  },
+  {
+    "version": "24.2",
+    "픽률": 4,
+    "country": "Global"
+  },
+  {
+    "version": "24.3",
+    "픽률": 5,
+    "country": "Global"
+  },
+  {
+    "version": "24.4",
+    "픽률": 4,
+    "country": "Global"
+  },
+  {
+    "version": "24.5",
+    "픽률": 5,
+    "country": "Global"
+  },
+
+  {
+    "version": "24.1",
+    "픽률": 7,
+    "country": "Korea"
+  },
+  {
+    "version": "24.2",
+    "픽률": 6,
+    "country": "Korea"
+  },
+  {
+    "version": "24.3",
+    "픽률": 6,
+    "country": "Korea"
+  },
+  {
+    "version": "24.4",
+    "픽률": 7,
+    "country": "Korea"
+  },
+  {
+    "version": "24.5",
+    "픽률": 8,
+    "country": "Korea"
+  },
+  {
+    "version": "24.1",
+    "픽률": 5,
+    "country": "Europe"
+  },
+  {
+    "version": "24.2",
+    "픽률": 5,
+    "country": "Europe"
+  },
+  {
+    "version": "24.3",
+    "픽률": 4,
+    "country": "Europe"
+  },
+  {
+    "version": "24.4",
+    "픽률": 5,
+    "country": "Europe"
+  },
+  {
+    "version": "24.5",
+    "픽률": 4,
+    "country": "Europe"
+  },
+  {
+    "version": "24.1",
+    "픽률": 6,
+    "country": "Japan"
+  },
+  {
+    "version": "24.2",
+    "픽률": 6,
+    "country": "Japan"
+  },
+  {
+    "version": "24.3",
+    "픽률": 8,
+    "country": "Japan"
+  },
+  {
+    "version": "24.4",
+    "픽률": 8,
+    "country": "Japan"
+  },
+  {
+    "version": "24.5",
+    "픽률": 9,
+    "country": "Japan"
+  }
+]

@@ -42,9 +42,9 @@ const Navbar = () => {
           <Link to="/chartboard">
             <div>패치별 통계</div>
           </Link>
-          <Link to="/news">
+          {/* <Link to="/news">
             <div>NEWS</div>
-          </Link>
+          </Link> */}
         </div>
         <div className="relative">
           {user?._id ? (
